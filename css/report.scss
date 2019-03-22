@@ -1,0 +1,10 @@
+// recompile command (in git bash in plugins/nitin folder):
+//sass.bat css/base.scss css/base.css
+
+// @import "C:/UniServerZ/www/redcap/plugins/nitin/css/_normalize.scss";
+@import "_normalize.scss";
+
+#choropleth {
+	height: 300px;
+	width: 400px;
+}

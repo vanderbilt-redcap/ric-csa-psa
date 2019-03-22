@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<link rel="stylesheet" href="css/report.css">
+		<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+			integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+			crossorigin=""/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+		<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script src="js/report.js"></script>
+		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+			integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+			crossorigin=""></script>
+		<title>Recruitment Innovation Center - General CSA/PSA Web Metrics Report</title>
+	</head>
+	<body>
+		<!-- logo -->
+		<img src='images/cheaplogo.png' alt='RIC Logo' height='150' width='400'>
+		<!-- csa row -->
+		<div>
+			<div>
+				<span>50</span>
+				<span>CSAs</span>
+			</div>
+			<div>
+				<span>364</span>
+				<span>Hits</span>
+			</div>
+			<div>
+				<span>255</span>
+				<span>Contacts</span>
+			</div>
+			<div>
+				<span>215</span>
+				<span>Locations</span>
+			</div>
+			<div>
+				<span>Conversion:</span>
+				<span>84%</span>
+				<span>84/100</span>
+			</div>
+		</div>
+		<!-- psa row -->
+		<div>
+			<div>
+				<span>22</span>
+				<span>CSAs</span>
+			</div>
+			<div>
+				<span>324</span>
+				<span>Hits</span>
+			</div>
+			<div>
+				<span>124</span>
+				<span>Contacts</span>
+			</div>
+			<div>
+				<span>86</span>
+				<span>Locations</span>
+			</div>
+			<div>
+				<span>Conversion:</span>
+				<span>82%</span>
+				<span>28/55</span>
+			</div>
+		</div>
+		<!-- heatmap -->
+		<div id='choropleth'>
+			<img src='images/cheapmap.png' alt='CSA PSA metrics choropleth' width='50%'>
+		</div>
+		<!-- drilldown tables -->
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th>Study Name</th>
+						<th>Unique Hits</th>
+						<th>Contacts</th>
+						<th>% Conversion</th>
+					</tr>
+					<button type='button' class='tableExpander'></button>
+					<tr>
+						<th>Target</th>
+						<th>242</th>
+						<th>98</th>
+						<th>36%</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><small>Location Detail</small></td>
+					</tr>
+					<tr>
+						<td>Location 1</td>
+						<td>75</td>
+						<td>20</td>
+						<td>34%</td>
+					</tr>
+					<tr>
+						<td>Location 2</td>
+						<td>35</td>
+						<td>15</td>
+						<td>44%</td>
+					</tr>
+					<tr>
+						<td>Location 3</td>
+						<td>132</td>
+						<td>63</td>
+						<td>31%</td>
+					</tr>
+					<tr>
+						<td><small>Page Detail</small></td>
+					</tr>
+					<tr>
+						<td>Page 1</td>
+						<td>75</td>
+						<td>20</td>
+						<td>34%</td>
+					</tr>
+					<tr>
+						<td>Page 2</td>
+						<td>35</td>
+						<td>15</td>
+						<td>44%</td>
+					</tr>
+				</tbody>
+			</table>
+			<table>
+				<thead>
+					<tr>
+						<th>Study Name</th>
+						<th>Unique Hits</th>
+						<th>Contacts</th>
+						<th>% Conversion</th>
+					</tr>
+					<br />
+					<button type='button' class='tableExpander'></button>
+					<tr>
+						<th>ValEAR</th>
+						<th>88</th>
+						<th>61</th>
+						<th>54%</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><small>Location Detail</small></td>
+					</tr>
+					<tr>
+						<td>Location 1</td>
+						<td>25</td>
+						<td>12</td>
+						<td>48%</td>
+					</tr>
+					<tr>
+						<td>Location 2</td>
+						<td>63</td>
+						<td>49</td>
+						<td>60%</td>
+					</tr>
+					<tr>
+						<td><small>Page Detail</small></td>
+					</tr>
+					<tr>
+						<td>Page 1</td>
+						<td>22</td>
+						<td>15</td>
+						<td>73%</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

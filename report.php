@@ -4,11 +4,6 @@ require_once "../../redcap_connect.php";
 require_once "config.php";
 
 class Report {
-	public static function makeReport($args) {
-		$report = '';
-		
-		return $report;
-	}
 	
 	public static function getProjectIDs() {
 		// fetches the txt file in the master project's file repository that contains list of other study (CSA/PSA) project IDs
@@ -39,6 +34,21 @@ class Report {
 			return $pids;
 		}
 	}
+	
+	public static function getReportData($args) {
+		$data = [];
+		foreach ($args as $pid) {
+			$data[$pid] = \REDCap::getData($pid);
+		}
+		return $data;
+	}
+	
+	public static function makeGeneralReport($args) {
+		include 'generalReport.html';
+	}
 }
 
-print_r(Report::getProjectIDFile());
+$pids = \Report::getProjectIDs();
+$data = \Report::getReportData($pids);
+\Report::makeGeneralReport($data);
+// echo($genReport);

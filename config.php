@@ -12,11 +12,12 @@ if(!defined("ENVIRONMENT")) {
 			define("ENVIRONMENT", "TEST");
 			define("MASTER_PID", null);
 		}
+	} elseif (gethostname() == 'VICTRWD-83SJHQ2') {
+		define("ENVIRONMENT", "DEV");
+		define("MASTER_PID", 28);
 	} else {
 		define("ENVIRONMENT", "DEV");
 		define("MASTER_PID", 19);
-		// echo(ENVIRONMENT);
-		// echo(MASTER_PID);
 	}
 }
 
