@@ -8,3 +8,37 @@
 	height: 300px;
 	width: 400px;
 }
+
+.statRow {
+	margin: 4px 4px;
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 48px;
+	display: flex;
+	align-items: center;
+}
+.statBox {
+	border: 1.5px solid #A8A8A8;
+	border-radius: 5px;
+	padding: 24px 24px;
+	margin: 8px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	span:last-child {
+		font-size: 16px;
+	}
+}
+.statCircle {
+	margin: 8px;
+    display: inline-block;
+    position: relative;
+	span {
+		position: absolute;
+		font-size: 10px;
+		font-weight: 600;
+		color: #6A6A6A;
+		left: 33%;
+		top: 62%;
+	}
+}

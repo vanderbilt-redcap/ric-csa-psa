@@ -13,6 +13,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 		<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<script src="js/report.js"></script>
+		<script src="js/radialIndicator/radialIndicator.js"></script>
 		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
 			integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
 			crossorigin=""></script>
@@ -22,51 +23,47 @@
 		<!-- logo -->
 		<img src='images/cheaplogo.png' alt='RIC Logo' height='150' width='400'>
 		<!-- csa row -->
-		<div>
-			<div>
+		<div class='statRow'>
+			<div class='statBox'>
 				<span>50</span>
 				<span>CSAs</span>
 			</div>
-			<div>
+			<div class='statBox'>
 				<span>364</span>
 				<span>Hits</span>
-			</div>
-			<div>
-				<span>255</span>
+			</div class='statBox'>
+			<div class='statBox'>
+				<span>480</span>
 				<span>Contacts</span>
 			</div>
-			<div>
-				<span>215</span>
+			<div class='statBox'>
+				<span>750</span>
 				<span>Locations</span>
 			</div>
-			<div>
-				<span>Conversion:</span>
-				<span>84%</span>
+			<div class='statCircle' data-value='84'>
 				<span>84/100</span>
 			</div>
 		</div>
 		<!-- psa row -->
-		<div>
-			<div>
-				<span>22</span>
-				<span>CSAs</span>
+		<div class='statRow'>
+			<div class='statBox'>
+				<span>17</span>
+				<span>PSAs</span>
 			</div>
-			<div>
-				<span>324</span>
+			<div class='statBox'>
+				<span>364</span>
 				<span>Hits</span>
-			</div>
-			<div>
-				<span>124</span>
+			</div class='statBox'>
+			<div class='statBox'>
+				<span>480</span>
 				<span>Contacts</span>
 			</div>
-			<div>
-				<span>86</span>
+			<div class='statBox'>
+				<span>750</span>
 				<span>Locations</span>
 			</div>
-			<div>
-				<span>Conversion:</span>
-				<span>82%</span>
-				<span>28/55</span>
+			<div class='statCircle' data-value='84'>
+				<span>84/100</span>
 			</div>
 		</div>
 		<!-- heatmap -->

@@ -36,42 +36,54 @@ class Report {
 	}
 	
 	public static function getReportData($projectIDs) {
+		$pids = 
 		$data = [];
 		foreach ($projectIDs as $pid) {
 			$project = new \Project($pid);
+			$appTitle = $project->project['app_title'];
+			
 			$eid = $project->firstEventId;
 			$project = \REDCap::getData($pid);
 			if ($project[1][$eid]['published'] == true) {
-				echo("<pre>");
-				$labels = \Report::getFieldLabels(['pid' => $pid, 'field' => 'ct_location']);
-				print_r($labels);
-				echo("</pre>");
-				exit();
 				// we're going to re-organize the project data so it'll be easier to use on the front-end
 				$locations = [];
 				$pages = [];
 				
-				$contacts = $project;
-				$hits = $project[$pid][1]['repeat_instances'][$eid]['hits'];
+				$contactLocationLabels = \Report::getFieldLabels(['pid' => $pid, 'field' => 'ct_location']);
+				$contacts = $project[1]['repeat_instances'][$eid]['contacts'];
+				$hits = $project[1]['repeat_instances'][$eid]['hits'];
 				
-				echo("<pre>");
-				print_r($contacts);
-				echo("</pre>");
-				exit();
 				foreach ($contacts as $contact) {
-					$location = $contact['ct_location'];
-					if (isset($locations[$location])) {
-						
+					if (isset($locations[$contact['ct_location']])) {
+						$locations[$contact['ct_location']]++;
 					} else {
-						
+						$locations[$contact['ct_location']] = 1;
 					}
 				}
 				foreach ($hits as $hit) {
+					if (isset($locations[$hit['hit_location']])) {
+						$locations[$hit['hit_location']]++;
+					} else {
+						$locations[$hit['hit_location']] = 1;
+					}
 					
+					preg_match('/page(\d+)/', $hit['hit_url'], $match);
+					if (empty($match)) {
+						$page = $hit['hit_url'];
+					} else {
+						$page = 'Page ' . $match[1];
+					}
+					if (isset($pages[$page])) {
+						$pages[$page]++;
+					} else {
+						$pages[$page] = 1;
+					}
 				}
 				
 				$data[] = [
-					'study_name' => $project->project['app_title'],
+					'study_name' => $appTitle,
+					'csa' => $project[1][$eid]['csa_psa'][1],
+					'psa' => $project[1][$eid]['csa_psa'][2],
 					'locations' => $locations,
 					'pages' => $pages
 				];
@@ -82,7 +94,7 @@ class Report {
 		return $data;
 	}
 	
-	public static function makeGeneralReport($args) {
+	public static function makeGeneralReport() {
 		include 'generalReport.html';
 	}
 	
@@ -103,6 +115,12 @@ class Report {
 }
 
 $pids = \Report::getProjectIDs();
-$data = \Report::getReportData($pids);
-// \Report::makeGeneralReport($data);
-// echo($genReport);
+$reportData = \Report::getReportData($pids);
+
+// echo("<pre>");
+// print_r($reportData);
+// echo("</pre>");
+// exit();
+
+// \Report::makeGeneralReport();
+include 'generalReport.html';
