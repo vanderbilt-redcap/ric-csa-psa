@@ -337,14 +337,12 @@ template {
   display: none;
 }
 
-#choropleth {
-  height: 300px;
-  width: 400px;
+html {
+  font-family: Verdana, Helvetica, sans-serif;
 }
 
 .statRow {
   margin: 4px 4px;
-  font-family: Verdana, Helvetica, sans-serif;
   font-size: 48px;
   display: flex;
   align-items: center;
@@ -376,6 +374,56 @@ template {
   color: #6A6A6A;
   left: 33%;
   top: 62%;
+}
+
+.columnNames {
+  margin: 0px 0px 12px 166px;
+}
+.columnNames * {
+  display: inline-block;
+  width: 150px;
+  text-align: center;
+}
+
+.tableCollapsible {
+  background-color: #AAA;
+}
+
+.tableCollapsible:hover {
+  background-color: #CCC;
+}
+
+.tableCaret {
+  width: 32px;
+  height: 32px;
+}
+
+.rotated {
+  transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  /* IE 9 */
+  -moz-transform: rotate(270deg);
+  /* Firefox */
+  -webkit-transform: rotate(270deg);
+  /* Safari and Chrome */
+  -o-transform: rotate(270deg);
+  /* Opera */
+}
+
+table {
+  border-collapse: collapse;
+  margin-left: 20px;
+}
+
+thead tr {
+  width: 80%;
+  height: 32px;
+}
+
+th, td {
+  width: 152px;
+  text-align: center;
+  padding: 0px;
 }
 
 /*# sourceMappingURL=report.css.map */

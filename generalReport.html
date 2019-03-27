@@ -25,19 +25,19 @@
 		<!-- csa row -->
 		<div class='statRow'>
 			<div class='statBox'>
-				<span>50</span>
+				<span><?php echo($reportData['totals']['csas']['count']); ?></span>
 				<span>CSAs</span>
 			</div>
 			<div class='statBox'>
-				<span>364</span>
+				<span><?php echo($reportData['totals']['csas']['hits']); ?></span>
 				<span>Hits</span>
 			</div class='statBox'>
 			<div class='statBox'>
-				<span>480</span>
+				<span><?php echo($reportData['totals']['csas']['contacts']); ?></span>
 				<span>Contacts</span>
 			</div>
 			<div class='statBox'>
-				<span>750</span>
+				<span><?php echo($reportData['totals']['csas']['locations']); ?></span>
 				<span>Locations</span>
 			</div>
 			<div class='statCircle' data-value='84'>
@@ -47,19 +47,19 @@
 		<!-- psa row -->
 		<div class='statRow'>
 			<div class='statBox'>
-				<span>17</span>
+				<span><?php echo($reportData['totals']['psas']['count']); ?></span>
 				<span>PSAs</span>
 			</div>
 			<div class='statBox'>
-				<span>364</span>
+				<span><?php echo($reportData['totals']['psas']['hits']); ?></span>
 				<span>Hits</span>
 			</div class='statBox'>
 			<div class='statBox'>
-				<span>480</span>
+				<span><?php echo($reportData['totals']['psas']['contacts']); ?></span>
 				<span>Contacts</span>
 			</div>
 			<div class='statBox'>
-				<span>750</span>
+				<span><?php echo($reportData['totals']['psas']['locations']); ?></span>
 				<span>Locations</span>
 			</div>
 			<div class='statCircle' data-value='84'>
@@ -68,43 +68,49 @@
 		</div>
 		<!-- heatmap -->
 		<div id='choropleth'>
-			<img src='images/cheapmap.png' alt='CSA PSA metrics choropleth' width='50%'>
+			<img src='images/cheapmap.png' alt='CSA PSA metrics choropleth'>
 		</div>
 		<!-- drilldown tables -->
 		<div>
+			<div class='columnNames'>
+				<span>CSA Name</span>
+				<span>Unique Hits</span>
+				<span>Contacts</span>
+				<span>% Conversion</span>
+			</div>
+<?php
+foreach($reportData as $study) {
+	
+}
+?>
 			<table>
-				<thead>
-					<tr>
-						<th>Study Name</th>
-						<th>Unique Hits</th>
-						<th>Contacts</th>
-						<th>% Conversion</th>
-					</tr>
-					<button type='button' class='tableExpander'></button>
-					<tr>
-						<th>Target</th>
-						<th>242</th>
-						<th>98</th>
-						<th>36%</th>
-					</tr>
+				<thead class='tableCollapsible'>
+					<th><img src="images/caret-down-solid.svg" onerror="this.onerror=null; this.src='images/caret-down-solid.png'" class='tableCaret rotated'></th>
+					<th>Target</th>
+					<th>242</th>
+					<th>98</th>
+					<th>36%</th>
 				</thead>
 				<tbody>
 					<tr>
 						<td><small>Location Detail</small></td>
 					</tr>
 					<tr>
+						<td></td>
 						<td>Location 1</td>
 						<td>75</td>
 						<td>20</td>
 						<td>34%</td>
 					</tr>
 					<tr>
+						<td></td>
 						<td>Location 2</td>
 						<td>35</td>
 						<td>15</td>
 						<td>44%</td>
 					</tr>
 					<tr>
+						<td></td>
 						<td>Location 3</td>
 						<td>132</td>
 						<td>63</td>
@@ -114,12 +120,14 @@
 						<td><small>Page Detail</small></td>
 					</tr>
 					<tr>
+						<td></td>
 						<td>Page 1</td>
 						<td>75</td>
 						<td>20</td>
 						<td>34%</td>
 					</tr>
 					<tr>
+						<td></td>
 						<td>Page 2</td>
 						<td>35</td>
 						<td>15</td>
@@ -127,50 +135,55 @@
 					</tr>
 				</tbody>
 			</table>
-			<table>
-				<thead>
-					<tr>
-						<th>Study Name</th>
-						<th>Unique Hits</th>
-						<th>Contacts</th>
-						<th>% Conversion</th>
-					</tr>
-					<br />
-					<button type='button' class='tableExpander'></button>
-					<tr>
-						<th>ValEAR</th>
-						<th>88</th>
-						<th>61</th>
-						<th>54%</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><small>Location Detail</small></td>
-					</tr>
-					<tr>
-						<td>Location 1</td>
-						<td>25</td>
-						<td>12</td>
-						<td>48%</td>
-					</tr>
-					<tr>
-						<td>Location 2</td>
-						<td>63</td>
-						<td>49</td>
-						<td>60%</td>
-					</tr>
-					<tr>
-						<td><small>Page Detail</small></td>
-					</tr>
-					<tr>
-						<td>Page 1</td>
-						<td>22</td>
-						<td>15</td>
-						<td>73%</td>
-					</tr>
-				</tbody>
-			</table>
+			<!-- <table> -->
+				<!-- <thead> -->
+					<!-- <tr> -->
+						<!-- <th>Study Name</th> -->
+						<!-- <th>Unique Hits</th> -->
+						<!-- <th>Contacts</th> -->
+						<!-- <th>% Conversion</th> -->
+					<!-- </tr> -->
+					<!-- <br /> -->
+					<!-- <button type='button' class='tableExpander'></button> -->
+					<!-- <tr> -->
+						<!-- <th>ValEAR</th> -->
+						<!-- <th>88</th> -->
+						<!-- <th>61</th> -->
+						<!-- <th>54%</th> -->
+					<!-- </tr> -->
+				<!-- </thead> -->
+				<!-- <tbody> -->
+					<!-- <tr> -->
+						<!-- <td><small>Location Detail</small></td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+						<!-- <td>Location 1</td> -->
+						<!-- <td>25</td> -->
+						<!-- <td>12</td> -->
+						<!-- <td>48%</td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+						<!-- <td>Location 2</td> -->
+						<!-- <td>63</td> -->
+						<!-- <td>49</td> -->
+						<!-- <td>60%</td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+						<!-- <td><small>Page Detail</small></td> -->
+					<!-- </tr> -->
+					<!-- <tr> -->
+						<!-- <td>Page 1</td> -->
+						<!-- <td>22</td> -->
+						<!-- <td>15</td> -->
+						<!-- <td>73%</td> -->
+					<!-- </tr> -->
+				<!-- </tbody> -->
+			<!-- </table> -->
 		</div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
 	</body>
 </html>

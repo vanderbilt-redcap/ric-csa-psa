@@ -38,6 +38,22 @@ class Report {
 	public static function getReportData($projectIDs) {
 		$pids = 
 		$data = [];
+		$data['totals'] = [
+			'csas' => [
+				'count' => 0,
+				'hits' => 0,
+				'contacts' => 0,
+				'locations' => 0,
+				'actual' => 0
+			],
+			'psas' => [
+				'count' => 0,
+				'hits' => 0,
+				'contacts' => 0,
+				'locations' => 0,
+				'actual' => 0
+			]
+		];
 		foreach ($projectIDs as $pid) {
 			$project = new \Project($pid);
 			$appTitle = $project->project['app_title'];
@@ -52,8 +68,13 @@ class Report {
 				$contactLocationLabels = \Report::getFieldLabels(['pid' => $pid, 'field' => 'ct_location']);
 				$contacts = $project[1]['repeat_instances'][$eid]['contacts'];
 				$hits = $project[1]['repeat_instances'][$eid]['hits'];
-				
+				$totals = [
+					'hits' => 0,
+					'contacts' => 0,
+					'actual' => 0
+				];
 				foreach ($contacts as $contact) {
+					$totals['contacts']++;
 					if (isset($locations[$contact['ct_location']])) {
 						$locations[$contact['ct_location']]++;
 					} else {
@@ -61,6 +82,7 @@ class Report {
 					}
 				}
 				foreach ($hits as $hit) {
+					$totals['hits']++;
 					if (isset($locations[$hit['hit_location']])) {
 						$locations[$hit['hit_location']]++;
 					} else {
@@ -80,22 +102,33 @@ class Report {
 					}
 				}
 				
+				if ($project[1][$eid]['csa_psa'][1] == true) {
+					$data['totals']['csas']['count']++;
+					$data['totals']['csas']['hits'] += $totals['hits'];
+					$data['totals']['csas']['contacts'] += $totals['contacts'];
+					$data['totals']['csas']['locations'] += count($locations);
+				}
+				if ($project[1][$eid]['csa_psa'][2] == true) {
+					$data['totals']['psas']['count']++;
+					$data['totals']['psas']['hits'] += $totals['hits'];
+					$data['totals']['psas']['contacts'] += $totals['contacts'];
+					$data['totals']['psas']['locations'] += count($locations);
+				}
+				
 				$data[] = [
 					'study_name' => $appTitle,
 					'csa' => $project[1][$eid]['csa_psa'][1],
 					'psa' => $project[1][$eid]['csa_psa'][2],
 					'locations' => $locations,
-					'pages' => $pages
+					'pages' => $pages,
+					'totals' => $totals
 				];
 			} else {
 				unset($data[$pid]);
 			}
 		}
+		
 		return $data;
-	}
-	
-	public static function makeGeneralReport() {
-		include 'generalReport.html';
 	}
 	
 	public static function getFieldLabels($args) {
