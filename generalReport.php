@@ -79,106 +79,55 @@
 				<span>% Conversion</span>
 			</div>
 <?php
-foreach($reportData as $study) {
+foreach($reportData as $key => $study) {
+	// echo("<pre>");
+	// print_r($reportData);
+	// echo("</pre>");
 	
-}
-?>
+	if (!is_numeric($key)) continue;
+	echo("
 			<table>
 				<thead class='tableCollapsible'>
-					<th><img src="images/caret-down-solid.svg" onerror="this.onerror=null; this.src='images/caret-down-solid.png'" class='tableCaret rotated'></th>
-					<th>Target</th>
-					<th>242</th>
-					<th>98</th>
-					<th>36%</th>
+					<th><img src='images/caret-down-solid.svg' onerror=\"this.onerror=null; this.src='images/caret-down-solid.png'\" class='tableCaret rotated'></th>
+					<th>{$study['study_name']}</th>
+					<th>{$study['totals']['hits']}</th>
+					<th>{$study['totals']['contacts']}</th>
+					<th>{$study['totals']['conversionRate']}%</th>
 				</thead>
 				<tbody>
 					<tr>
 						<td><small>Location Detail</small></td>
-					</tr>
+					</tr>");
+	foreach ($study['locations'] as $locationName => $locationCounts) {
+		echo("
 					<tr>
 						<td></td>
-						<td>Location 1</td>
-						<td>75</td>
-						<td>20</td>
-						<td>34%</td>
-					</tr>
-					<tr>
+						<td>$locationName</td>
+						<td>{$locationCounts['hits']}</td>
+						<td>{$locationCounts['contacts']}</td>
 						<td></td>
-						<td>Location 2</td>
-						<td>35</td>
-						<td>15</td>
-						<td>44%</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>Location 3</td>
-						<td>132</td>
-						<td>63</td>
-						<td>31%</td>
-					</tr>
+					</tr>");
+	}
+	echo("
 					<tr>
 						<td><small>Page Detail</small></td>
-					</tr>
+					</tr>");
+	foreach ($study['pages'] as $pageName => $pageHits) {
+		echo("
 					<tr>
 						<td></td>
-						<td>Page 1</td>
-						<td>75</td>
-						<td>20</td>
-						<td>34%</td>
-					</tr>
-					<tr>
+						<td>$pageName</td>
+						<td>$pageHits</td>
 						<td></td>
-						<td>Page 2</td>
-						<td>35</td>
-						<td>15</td>
-						<td>44%</td>
-					</tr>
+						<td></td>
+					</tr>");
+	}
+	echo("
 				</tbody>
-			</table>
-			<!-- <table> -->
-				<!-- <thead> -->
-					<!-- <tr> -->
-						<!-- <th>Study Name</th> -->
-						<!-- <th>Unique Hits</th> -->
-						<!-- <th>Contacts</th> -->
-						<!-- <th>% Conversion</th> -->
-					<!-- </tr> -->
-					<!-- <br /> -->
-					<!-- <button type='button' class='tableExpander'></button> -->
-					<!-- <tr> -->
-						<!-- <th>ValEAR</th> -->
-						<!-- <th>88</th> -->
-						<!-- <th>61</th> -->
-						<!-- <th>54%</th> -->
-					<!-- </tr> -->
-				<!-- </thead> -->
-				<!-- <tbody> -->
-					<!-- <tr> -->
-						<!-- <td><small>Location Detail</small></td> -->
-					<!-- </tr> -->
-					<!-- <tr> -->
-						<!-- <td>Location 1</td> -->
-						<!-- <td>25</td> -->
-						<!-- <td>12</td> -->
-						<!-- <td>48%</td> -->
-					<!-- </tr> -->
-					<!-- <tr> -->
-						<!-- <td>Location 2</td> -->
-						<!-- <td>63</td> -->
-						<!-- <td>49</td> -->
-						<!-- <td>60%</td> -->
-					<!-- </tr> -->
-					<!-- <tr> -->
-						<!-- <td><small>Page Detail</small></td> -->
-					<!-- </tr> -->
-					<!-- <tr> -->
-						<!-- <td>Page 1</td> -->
-						<!-- <td>22</td> -->
-						<!-- <td>15</td> -->
-						<!-- <td>73%</td> -->
-					<!-- </tr> -->
-				<!-- </tbody> -->
-			<!-- </table> -->
+			</table>");
+}
+?>
+		
 		</div>
 		<br />
 		<br />

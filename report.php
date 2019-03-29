@@ -54,6 +54,14 @@ class Report {
 				'actual' => 0
 			]
 		];
+		
+		function sortLocationsByHits($a, $b) {
+			return $b['hits'] <=> $a['hits'];
+		}
+		function sortPagesByHits($a, $b) {
+			return $b <=> $a;
+		}
+		
 		foreach ($projectIDs as $pid) {
 			$project = new \Project($pid);
 			$appTitle = $project->project['app_title'];
@@ -73,34 +81,60 @@ class Report {
 					'contacts' => 0,
 					'actual' => 0
 				];
+				
 				foreach ($contacts as $contact) {
 					$totals['contacts']++;
-					if (isset($locations[$contact['ct_location']])) {
-						$locations[$contact['ct_location']]++;
-					} else {
-						$locations[$contact['ct_location']] = 1;
+					
+					$locationID = $contact['ct_location'];
+					if (isset($contactLocationLabels[$locationID])) {
+						// determine location name
+						preg_match('/(?:\d+)?\s?(.*)/', $contactLocationLabels[$locationID], $match);
+						$locationName = $match[1];
+						
+						// add location to locations if not present
+						if (!isset($locations[$locationName])) {
+							$locations[$locationName] = [
+								'hits' => 0,
+								'contacts' => 0
+							];
+						}
+						// increment contacts counter
+						$locations[$locationName]['contacts']++;
 					}
 				}
+				
 				foreach ($hits as $hit) {
 					$totals['hits']++;
-					if (isset($locations[$hit['hit_location']])) {
-						$locations[$hit['hit_location']]++;
-					} else {
-						$locations[$hit['hit_location']] = 1;
+					
+					$locationID = $hit['hit_location'];
+					if (isset($contactLocationLabels[$locationID])) {
+						// determine location name
+						preg_match('/(?:\d+)?\s?(.*)/', $contactLocationLabels[$locationID], $match);
+						$locationName = $match[1];
+						
+						// add location to locations if not present
+						if (!isset($locations[$locationName])) {
+							$locations[$locationName] = [
+								'hits' => 0,
+								'contacts' => 0
+							];
+						}
+						// increment contacts counter
+						$locations[$locationName]['hits']++;
 					}
 					
 					preg_match('/page(\d+)/', $hit['hit_url'], $match);
-					if (empty($match)) {
-						$page = $hit['hit_url'];
-					} else {
+					if (!empty($match)) {
 						$page = 'Page ' . $match[1];
-					}
-					if (isset($pages[$page])) {
-						$pages[$page]++;
-					} else {
-						$pages[$page] = 1;
+						if (isset($pages[$page])) {
+							$pages[$page]++;
+						} else {
+							$pages[$page] = 1;
+						}
 					}
 				}
+				
+				$totals['conversionRate'] = round(100 * $totals['actual'] / $totals['hits']);
 				
 				if ($project[1][$eid]['csa_psa'][1] == true) {
 					$data['totals']['csas']['count']++;
@@ -114,6 +148,9 @@ class Report {
 					$data['totals']['psas']['contacts'] += $totals['contacts'];
 					$data['totals']['psas']['locations'] += count($locations);
 				}
+				
+				uasort($pages, 'sortPagesByHits');
+				uasort($locations, 'sortLocationsByHits');
 				
 				$data[] = [
 					'study_name' => $appTitle,
@@ -139,6 +176,7 @@ class Report {
 		foreach ($csv as $line) {
 			preg_match_all('/(\d+),\s+(.*)/', $line, $matches);
 			if (!empty($matches) and isset($matches[1][0])) {
+				// preg_match('/(\d+)[\s]+(.*)/', $matches[2][0], $match);
 				$labels[$matches[1][0]] = $matches[2][0];
 			}
 			unset($matches);
@@ -156,4 +194,4 @@ $reportData = \Report::getReportData($pids);
 // exit();
 
 // \Report::makeGeneralReport();
-include 'generalReport.html';
+include 'generalReport.php';

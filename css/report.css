@@ -377,16 +377,25 @@ html {
 }
 
 .columnNames {
-  margin: 0px 0px 12px 166px;
+  background-color: #DDD;
+  color: #116;
+  padding: 8px 0px 8px 170px;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 550;
 }
-.columnNames * {
+.columnNames span:nth-child(1) {
+  width: 394px;
+}
+.columnNames span {
   display: inline-block;
-  width: 150px;
-  text-align: center;
+  width: 148px;
+  text-align: left;
 }
 
 .tableCollapsible {
   background-color: #AAA;
+  text-align: left;
 }
 
 .tableCollapsible:hover {
@@ -413,6 +422,7 @@ html {
 table {
   border-collapse: collapse;
   margin-left: 20px;
+  margin-bottom: 8px;
 }
 
 thead tr {
@@ -420,9 +430,13 @@ thead tr {
   height: 32px;
 }
 
+th:nth-child(2), td:nth-child(2) {
+  width: 400px;
+  text-align: left;
+}
+
 th, td {
   width: 152px;
-  text-align: center;
   padding: 0px;
 }
 
