@@ -440,4 +440,9 @@ th, td {
   padding: 0px;
 }
 
+#choropleth {
+  width: 1200px;
+  height: 800px;
+}
+
 /*# sourceMappingURL=report.css.map */

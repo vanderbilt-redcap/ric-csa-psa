@@ -1,197 +1,138 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<link rel="stylesheet" href="css/report.css">
+		<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+			integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+			crossorigin=""/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+		<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<script src="js/report.js"></script>
+		<script src="js/radialIndicator/radialIndicator.js"></script>
+		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+			integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+			crossorigin=""></script>
+		<title>Recruitment Innovation Center - General CSA/PSA Web Metrics Report</title>
+	</head>
+	<body>
+		<!-- logo -->
+		<img src='images/cheaplogo.png' alt='RIC Logo' height='150' width='400'>
+		<!-- csa row -->
+		<div class='statRow'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['count']); ?></span>
+				<span>CSAs</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['hits']); ?></span>
+				<span>Hits</span>
+			</div class='statBox'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['contacts']); ?></span>
+				<span>Contacts</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['locations']); ?></span>
+				<span>Locations</span>
+			</div>
+			<div class='statCircle' data-value='84'>
+				<span>84/100</span>
+			</div>
+		</div>
+		<!-- psa row -->
+		<div class='statRow'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['count']); ?></span>
+				<span>PSAs</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['hits']); ?></span>
+				<span>Hits</span>
+			</div class='statBox'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['contacts']); ?></span>
+				<span>Contacts</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['locations']); ?></span>
+				<span>Locations</span>
+			</div>
+			<div class='statCircle' data-value='84'>
+				<span>84/100</span>
+			</div>
+		</div>
+		<!-- heatmap -->
+		<div id='choropleth'>
+			<img src='images/cheapmap.png' alt='CSA PSA metrics choropleth'>
+		</div>
+		<!-- drilldown tables -->
+		<div>
+			<div class='columnNames'>
+				<span>CSA Name</span>
+				<span>Unique Hits</span>
+				<span>Contacts</span>
+				<span>% Conversion</span>
+			</div>
 <?php
-
-require_once "../../redcap_connect.php";
-require_once "config.php";
-
-class Report {
+foreach($reportData as $key => $study) {
+	// echo("<pre>");
+	// print_r($reportData);
+	// echo("</pre>");
 	
-	public static function getProjectIDs() {
-		// fetches the txt file in the master project's file repository that contains list of other study (CSA/PSA) project IDs
-		
-		$pids = [];
-		$query = "SELECT * FROM redcap_edocs_metadata
-			WHERE project_id=" . MASTER_PID . " AND doc_name LIKE '%csa_psa_project_ids%'
-			ORDER BY stored_date DESC
-			LIMIT 1";
-		$result = db_query($query);
-		$info = db_fetch_assoc($result);
-		if (isset($info['stored_name'])) {
-			$pidsFilename = EDOC_PATH . $info['stored_name'];
-			if(!file_exists($pidsFilename)){
-				exit("Couldn't find list of CSA/PSA project IDs in the master project file repository. Please ensure the text file with project IDs is uploaded to the master project file repository with the name 'csa_psa_project_ids.txt'. The master project ID is " . MASTER_PID);
-			}
-			$pidsFile = file_get_contents($pidsFilename);
-			foreach(preg_split("/((\r?\n)|(\r\n?))/", $pidsFile) as $line){
-				preg_match_all("/(\d+)/", $line, $matches);
-				$potentialPID = intval($matches[0][0]);
-				if (gettype($potentialPID) == 'integer') {
-					$pids[] = $potentialPID;
-				}
-			}
-			if (empty($pids)) {
-				exit("Found project ID list in master project repository but couldn't find any project IDs in the text file.");
-			}
-			return $pids;
-		}
+	if (!is_numeric($key)) continue;
+	echo("
+			<table>
+				<thead class='tableCollapsible'>
+					<th><img src='images/caret-down-solid.svg' onerror=\"this.onerror=null; this.src='images/caret-down-solid.png'\" class='tableCaret rotated'></th>
+					<th>{$study['study_name']}</th>
+					<th>{$study['totals']['hits']}</th>
+					<th>{$study['totals']['contacts']}</th>
+					<th>{$study['totals']['conversionRate']}%</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td><small>Location Detail</small></td>
+					</tr>");
+	foreach ($study['locations'] as $locationName => $locationCounts) {
+		echo("
+					<tr>
+						<td></td>
+						<td>$locationName</td>
+						<td>{$locationCounts['hits']}</td>
+						<td>{$locationCounts['contacts']}</td>
+						<td></td>
+					</tr>");
 	}
-	
-	public static function getReportData($projectIDs) {
-		$pids = 
-		$data = [];
-		$data['totals'] = [
-			'csas' => [
-				'count' => 0,
-				'hits' => 0,
-				'contacts' => 0,
-				'locations' => 0,
-				'actual' => 0
-			],
-			'psas' => [
-				'count' => 0,
-				'hits' => 0,
-				'contacts' => 0,
-				'locations' => 0,
-				'actual' => 0
-			]
-		];
-		
-		function sortLocationsByHits($a, $b) {
-			return $b['hits'] <=> $a['hits'];
-		}
-		function sortPagesByHits($a, $b) {
-			return $b <=> $a;
-		}
-		
-		foreach ($projectIDs as $pid) {
-			$project = new \Project($pid);
-			$appTitle = $project->project['app_title'];
-			
-			$eid = $project->firstEventId;
-			$project = \REDCap::getData($pid);
-			if ($project[1][$eid]['published'] == true) {
-				// we're going to re-organize the project data so it'll be easier to use on the front-end
-				$locations = [];
-				$pages = [];
-				
-				$contactLocationLabels = \Report::getFieldLabels(['pid' => $pid, 'field' => 'ct_location']);
-				$contacts = $project[1]['repeat_instances'][$eid]['contacts'];
-				$hits = $project[1]['repeat_instances'][$eid]['hits'];
-				$totals = [
-					'hits' => 0,
-					'contacts' => 0,
-					'actual' => 0
-				];
-				
-				foreach ($contacts as $contact) {
-					$totals['contacts']++;
-					
-					$locationID = $contact['ct_location'];
-					if (isset($contactLocationLabels[$locationID])) {
-						// determine location name
-						preg_match('/(?:\d+)?\s?(.*)/', $contactLocationLabels[$locationID], $match);
-						$locationName = $match[1];
-						
-						// add location to locations if not present
-						if (!isset($locations[$locationName])) {
-							$locations[$locationName] = [
-								'hits' => 0,
-								'contacts' => 0
-							];
-						}
-						// increment contacts counter
-						$locations[$locationName]['contacts']++;
-					}
-				}
-				
-				foreach ($hits as $hit) {
-					$totals['hits']++;
-					
-					$locationID = $hit['hit_location'];
-					if (isset($contactLocationLabels[$locationID])) {
-						// determine location name
-						preg_match('/(?:\d+)?\s?(.*)/', $contactLocationLabels[$locationID], $match);
-						$locationName = $match[1];
-						
-						// add location to locations if not present
-						if (!isset($locations[$locationName])) {
-							$locations[$locationName] = [
-								'hits' => 0,
-								'contacts' => 0
-							];
-						}
-						// increment contacts counter
-						$locations[$locationName]['hits']++;
-					}
-					
-					preg_match('/page(\d+)/', $hit['hit_url'], $match);
-					if (!empty($match)) {
-						$page = 'Page ' . $match[1];
-						if (isset($pages[$page])) {
-							$pages[$page]++;
-						} else {
-							$pages[$page] = 1;
-						}
-					}
-				}
-				
-				$totals['conversionRate'] = round(100 * $totals['actual'] / $totals['hits']);
-				
-				if ($project[1][$eid]['csa_psa'][1] == true) {
-					$data['totals']['csas']['count']++;
-					$data['totals']['csas']['hits'] += $totals['hits'];
-					$data['totals']['csas']['contacts'] += $totals['contacts'];
-					$data['totals']['csas']['locations'] += count($locations);
-				}
-				if ($project[1][$eid]['csa_psa'][2] == true) {
-					$data['totals']['psas']['count']++;
-					$data['totals']['psas']['hits'] += $totals['hits'];
-					$data['totals']['psas']['contacts'] += $totals['contacts'];
-					$data['totals']['psas']['locations'] += count($locations);
-				}
-				
-				uasort($pages, 'sortPagesByHits');
-				uasort($locations, 'sortLocationsByHits');
-				
-				$data[] = [
-					'study_name' => $appTitle,
-					'csa' => $project[1][$eid]['csa_psa'][1],
-					'psa' => $project[1][$eid]['csa_psa'][2],
-					'locations' => $locations,
-					'pages' => $pages,
-					'totals' => $totals
-				];
-			} else {
-				unset($data[$pid]);
-			}
-		}
-		
-		return $data;
+	echo("
+					<tr>
+						<td><small>Page Detail</small></td>
+					</tr>");
+	foreach ($study['pages'] as $pageName => $pageHits) {
+		echo("
+					<tr>
+						<td></td>
+						<td>$pageName</td>
+						<td>$pageHits</td>
+						<td></td>
+						<td></td>
+					</tr>");
 	}
-	
-	public static function getFieldLabels($args) {
-		$project = new \Project($args['pid']);
-		$csv = $project->metadata[$args['field']]['element_enum'];
-		$csv = explode('\n', $csv);
-		$labels = [];
-		foreach ($csv as $line) {
-			preg_match_all('/(\d+),\s+(.*)/', $line, $matches);
-			if (!empty($matches) and isset($matches[1][0])) {
-				// preg_match('/(\d+)[\s]+(.*)/', $matches[2][0], $match);
-				$labels[$matches[1][0]] = $matches[2][0];
-			}
-			unset($matches);
-		}
-		return $labels;
-	}
+	echo("
+				</tbody>
+			</table>");
 }
-
-$pids = \Report::getProjectIDs();
-$reportData = \Report::getReportData($pids);
-
-// echo("<pre>");
-// print_r($reportData);
-// echo("</pre>");
-// exit();
-
-// \Report::makeGeneralReport();
-include 'generalReport.php';
+?>
+		
+		</div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+	</body>
+</html>
