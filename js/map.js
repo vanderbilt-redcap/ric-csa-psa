@@ -20,3 +20,22 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 L.geoJson(statesData).addTo(map);
 
+// add markers
+console.log(reportData);
+Object.keys(reportData).forEach(function(project, key) {
+	if ($.isNumeric(project)) {
+		// console.log(key + ': ' + project);
+		// console.log(typeof(key) + ": " + typeof(project));
+		// console.log(typeof(reportData[project]));
+		// console.log(typeof(reportData[project].locations));
+		let locations = reportData[project].locations;
+		Object.keys(locations).forEach(function(location, name) {
+			// console.log(typeof(name) + ': ' + name + ' -- ' + typeof(location) + ': ' + location);
+			// console.log(typeof(locations[location].lat));
+			let lat = locations[location].lat;
+			let lng = locations[location].lng;
+			let marker = L.marker([lat, lng]).addTo(map);
+			marker.bindPopup("<b>" + location + "</b><br>Hits: " + locations[location].hits);
+		});
+	}
+});

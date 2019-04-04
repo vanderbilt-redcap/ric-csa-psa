@@ -22,6 +22,12 @@
 		<!-- heatmap -->
 		<div id='choropleth'></div>
 		<script src="js/states.js"></script>
+		<?php
+			echo("
+		<script type='text/javascript'>
+			var reportData = JSON.parse('" . json_encode($reportData) . "');
+		</script>");
+		?>
 		<script src="js/map.js"></script>
 	</body>
 </html>
