@@ -6,11 +6,13 @@ require_once "config.php";
 
 $geocodesPath = str_replace("temp", "plugins\\ric-csa-psa", APP_PATH_TEMP . "geocodes.json");
 $geocodes = json_decode(file_get_contents($geocodesPath), true);
+$missingMarkers = 0;
 
 class Report {
 	
 	private static function geocode($place) {
 		global $geocodes;
+		global $missingMarkers;
 		if (isset($geocodes[$place])) return $geocodes[$place];
 		
 		//use Google Geocoding API
@@ -19,6 +21,7 @@ class Report {
 			$apikey = "AIzaSyCJ-EUa0QE3Zuyu7kG-wxlQ20jvNQw0hD4";
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$name&key=$apikey";
 			$json = file_get_contents($url);
+			// exit($json);
 			
 			// // use Nominatim OSM api:
 			// $url = "https://nominatim.openstreetmap.org/search?q=$name&format=json&limit=1";
@@ -33,8 +36,7 @@ class Report {
 			// $json = file_get_contents($url, false, $context);
 			
 			$response = json_decode($json, true);
-			
-			if ($response['status'] != 'OK') throw new Exception('non-ok response from geocoding API');
+			if ($response['status'] != 'OK') throw new Exception('non-ok response from geocoding API: ' . $response['status']);
 			$lat = $response['results'][0]['geometry']['location']['lat'];
 			$lng = $response['results'][0]['geometry']['location']['lng'];
 			if (!is_float($lat) or !is_float($lng)) {
@@ -42,7 +44,7 @@ class Report {
 			}
 		} catch (Exception $e) {
 			// TODO log geocode failure
-			$data['missingMarkerCount']++;
+			$missingMarkers++;
 			// echo($e . "<br />");
 			return null;
 		}
@@ -114,8 +116,7 @@ class Report {
 				'contacts' => 0,
 				'locations' => 0,
 				'actual' => 0
-			],
-			'missingMarkerCount' => 0
+			]
 		];
 		
 		function sortLocationsByHits($a, $b) {
@@ -167,7 +168,7 @@ class Report {
 								$locations[$locationName]['lat'] = $coords[0];
 								$locations[$locationName]['lng'] = $coords[1];
 							} else {
-								$locations[$locationName]['geocodeError'] = $coords;
+								// $locations[$locationName]['geocodeError'] = $coords;
 							}
 						}
 						// increment contacts counter
@@ -197,7 +198,7 @@ class Report {
 								$locations[$locationName]['lat'] = $coords[0];
 								$locations[$locationName]['lng'] = $coords[1];
 							} else {
-								$locations[$locationName]['geocodeError'] = $coords;
+								// $locations[$locationName]['geocodeError'] = $coords;
 							}
 						}
 						// increment contacts counter
@@ -252,10 +253,10 @@ class Report {
 
 $pids = \Report::getProjectIDs();
 $reportData = \Report::getReportData($pids);
-
+$reportData['missingMarkers'] = $missingMarkers;
 // save geocode info
 file_put_contents($geocodesPath, json_encode($geocodes));
 
-// include 'report.php';
-include 'map.php';
+include 'report.php';
+// include 'map.php';
 

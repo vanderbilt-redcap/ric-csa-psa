@@ -67,9 +67,12 @@
 			</div>
 		</div>
 		<!-- heatmap -->
-		<div id='choropleth'>
-			<img src='images/cheapmap.png' alt='CSA PSA metrics choropleth'>
-		</div>
+		<div id='choropleth'></div>
+		<script type='text/javascript'>
+			var reportData = JSON.parse(`<?php echo(json_encode($reportData)); ?>`);
+		</script>
+		<script src="js/states.js"></script>
+		<script src="js/map.js"></script>
 		<!-- drilldown tables -->
 		<div>
 			<div class='columnNames'>
@@ -127,7 +130,6 @@ foreach($reportData as $key => $study) {
 			</table>");
 }
 ?>
-		
 		</div>
 		<br />
 		<br />

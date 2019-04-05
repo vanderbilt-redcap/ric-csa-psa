@@ -16,18 +16,15 @@
 		<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 		<script src="js/radialIndicator/radialIndicator.js"></script>
 		<link rel="stylesheet" href="css/report.css">
+		<script type='text/javascript'>
+			var reportData = JSON.parse(`<?php echo(json_encode($reportData)); ?>`);
+		</script>
+		<script src="js/states.js"></script>
+		<script src="js/map.js"></script>
 		<title>Recruitment Innovation Center - General CSA/PSA Web Metrics Report</title>
 	</head>
 	<body>
 		<!-- heatmap -->
 		<div id='choropleth'></div>
-		<script src="js/states.js"></script>
-		<?php
-			echo("
-		<script type='text/javascript'>
-			var reportData = JSON.parse('" . json_encode($reportData) . "');
-		</script>");
-		?>
-		<script src="js/map.js"></script>
 	</body>
 </html>
