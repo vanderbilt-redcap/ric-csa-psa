@@ -20,11 +20,11 @@
 		<title>Recruitment Innovation Center - General CSA/PSA Web Metrics Report</title>
 	</head>
 	<body>
-		<h1><?php echo(getcwd()); ?></h1>
 		<script type='text/javascript'>
 			var debughelp = {};
 			debughelp.geocodesPath = "<?php echo(str_replace("\\", "\\\\", $geocodesPath)); ?>";
 			debughelp.logPath = "<?php echo(str_replace("\\", "\\\\", getcwd())); ?>";
+			debughelp.oldcwd = "<?php echo(str_replace("\\", "\\\\", $oldcwd)); ?>";
 			debughelp.geocodingKey = "<?php echo($geocodingKey); ?>";
 		</script>
 		<!-- logo -->
