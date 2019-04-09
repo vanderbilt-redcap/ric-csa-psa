@@ -343,7 +343,8 @@ html {
 
 body {
   display: flex;
-  align-items: center;
+  align-items: left;
+  padding: 0px 120px;
   flex-direction: column;
 }
 
@@ -382,23 +383,6 @@ body {
   top: 62%;
 }
 
-.columnNames {
-  background-color: #DDD;
-  color: #116;
-  padding: 8px 0px;
-  margin-bottom: 8px;
-  font-size: 18px;
-  font-weight: 550;
-}
-.columnNames span:nth-child(1) {
-  width: 394px;
-}
-.columnNames span {
-  display: inline-block;
-  width: 148px;
-  text-align: left;
-}
-
 .tableCollapsible {
   background-color: #AAA;
   text-align: left;
@@ -425,13 +409,18 @@ body {
   /* Opera */
 }
 
+#tableContainer {
+  padding-bottom: 200px !important;
+  width: 100%;
+}
+
 table {
   border-collapse: collapse;
-  margin-left: 20px;
+  width: 100%;
   margin-bottom: 8px;
 }
-table thead tr {
-  width: 80%;
+table thead tr:first-child {
+  background: #DDD;
   height: 32px;
 }
 table tbody td {
@@ -441,18 +430,8 @@ table tbody tr:nth-child(even) td:nth-child(1n+2) {
   background: #DDD;
 }
 
-th:nth-child(2), td:nth-child(2) {
-  width: 400px;
-  text-align: left;
-}
-
-th, td {
-  width: 152px;
-  padding: 0px;
-}
-
 #choropleth {
-  width: 70%;
+  width: 100%;
   height: 800px;
   margin: 20px 0px;
 }
