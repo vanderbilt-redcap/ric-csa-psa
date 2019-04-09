@@ -1,6 +1,7 @@
 <?php
 
 define("NOAUTH", true);
+exit('hi');
 require_once "../../redcap_connect.php";
 require_once "config.php";
 
