@@ -17,6 +17,10 @@ $(function(){
 	L.geoJson(statesData).addTo(map);
 	
 	// add markers
+	let markerIcon = L.icon({
+		iconUrl: 'images/marker.png',
+		iconSize: [16, 16]
+	});
 	let maxHits = 0;
 	Object.keys(reportData).forEach(function(project, key) {
 		if ($.isNumeric(project)) {
@@ -25,8 +29,16 @@ $(function(){
 				let lat = locations[location].lat;
 				let lng = locations[location].lng;
 				if (lat && lng) {
-					let marker = L.marker([lat, lng]).addTo(map);
+					let marker = L.marker([lat, lng], {icon: markerIcon}).addTo(map);
 					marker.bindPopup("<b>" + location + "</b><br>Hits: " + locations[location].hits);
+					marker.on({
+						mouseover: function(e) {
+							this.openPopup();
+						},
+						mouseout: function(e) {
+							this.closePopup();
+						}
+					});
 				}
 				
 				let state = states[locations[location].state];

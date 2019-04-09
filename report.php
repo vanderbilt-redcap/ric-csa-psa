@@ -22,6 +22,7 @@
 	<body>
 		<!-- logo -->
 		<img src='images/cheaplogo.png' alt='RIC Logo' height='150' width='400'>
+		<!-- title header -->
 		<!-- csa row -->
 		<div class='statRow'>
 			<div class='statBox'>
@@ -74,7 +75,7 @@
 		<script src="js/states.js"></script>
 		<script src="js/map.js"></script>
 		<!-- drilldown tables -->
-		<div>
+		<div id='tableContainer'>
 			<div class='columnNames'>
 				<span>CSA Name</span>
 				<span>Unique Hits</span>

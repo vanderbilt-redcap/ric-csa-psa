@@ -13,6 +13,12 @@ html {
 	font-family: Verdana, Helvetica, sans-serif;
 }
 
+body {
+	display: flex;
+	align-items: center;
+	flex-direction:column;
+}
+
 .statRow {
 	margin: 4px 4px;
 	font-size: 48px;
@@ -50,7 +56,7 @@ html {
 .columnNames {
 	background-color: #DDD;
 	color: #116;
-	padding: 8px 0px 8px 170px;
+	padding: 8px 0px;
 	margin-bottom: 8px;
 	font-size: 18px;
 	font-weight: 550;
@@ -111,8 +117,9 @@ th, td {
 }
 
 #choropleth {
-	width: 1200px;
+	width: 70%;
 	height: 800px;
+	margin: 20px 0px;
 }
 .info {
     padding: 6px 8px;
