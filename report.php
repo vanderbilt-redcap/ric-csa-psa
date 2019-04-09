@@ -24,6 +24,7 @@
 		<script type='text/javascript'>
 			var debughelp = {};
 			debughelp.geocodesPath = "<?php echo(str_replace("\\", "\\\\", $geocodesPath)); ?>";
+			debughelp.logPath = "<?php echo(str_replace("\\", "\\\\", getcwd())); ?>";
 			debughelp.geocodingKey = "<?php echo($geocodingKey); ?>";
 		</script>
 		<!-- logo -->
