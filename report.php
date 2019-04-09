@@ -20,6 +20,12 @@
 		<title>Recruitment Innovation Center - General CSA/PSA Web Metrics Report</title>
 	</head>
 	<body>
+
+		<script type='text/javascript'>
+			var debughelp = {};
+			debughelp.geocodesPath = "<?php echo(str_replace("\\", "\\\\", $geocodesPath)); ?>";
+			debughelp.geocodingKey = "<?php echo($geocodingKey); ?>";
+		</script>
 		<!-- logo -->
 		<img src='images/cheaplogo.png' alt='RIC Logo' height='150' width='400'>
 		<!-- title header -->

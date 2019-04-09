@@ -7,19 +7,19 @@ require_once "config.php";
 $geocodesPath = str_replace("temp", "plugins\\ric-csa-psa", APP_PATH_TEMP . "geocodes.json");
 $geocodes = json_decode(file_get_contents($geocodesPath), true);
 $missingMarkers = 0;
+$geocodingKey = file_get_contents('geocodingKey.txt');
 
 class RICReport {
-	
 	private static function geocode($place) {
 		global $geocodes;
 		global $missingMarkers;
+		global $geocodingKey;
 		if (isset($geocodes[$place])) return $geocodes[$place];
 		
 		//use Google Geocoding API
 		try {
 			$name = urlencode($place);
-			$apikey = "AIzaSyCJ-EUa0QE3Zuyu7kG-wxlQ20jvNQw0hD4";
-			$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$name&key=$apikey";
+			$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$name&key=$geocodingKey";
 			$json = file_get_contents($url);
 			$response = json_decode($json, true);
 			
@@ -50,7 +50,7 @@ class RICReport {
 		} catch (Exception $e) {
 			// TODO log geocode failure
 			$missingMarkers++;
-			// echo($e . "<br />");
+			file_put_contents('log.txt', "Failed to geocode location with place name: '$place'\r\nException text: $e\r\n", FILE_APPEND | LOCK_EX);
 			return null;
 		}
 		$coords = [$lat, $lng];

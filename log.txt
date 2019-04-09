@@ -1,0 +1,21 @@
+Failed to geocode location with place name: 'Arthur Lau, ON Canada'
+Failed to geocode location with place name: 'Sanjay Dixit, ON Canada'
+Failed to geocode location with place name: 'Nadil Zeiadin (Thorne), ON Canada'
+Failed to geocode location with place name: 'Arthur Lau, ON Canada'
+Exception text: Exception: non-ok response from geocoding API: ZERO_RESULTS in C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php:38
+Stack trace:
+#0 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(181): RICReport::geocode('Arthur Lau, ON ...')
+#1 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(276): RICReport::getReportData(Array)
+#2 {main}
+Failed to geocode location with place name: 'Sanjay Dixit, ON Canada'
+Exception text: Exception: non-ok response from geocoding API: ZERO_RESULTS in C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php:38
+Stack trace:
+#0 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(181): RICReport::geocode('Sanjay Dixit, O...')
+#1 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(276): RICReport::getReportData(Array)
+#2 {main}
+Failed to geocode location with place name: 'Nadil Zeiadin (Thorne), ON Canada'
+Exception text: Exception: non-ok response from geocoding API: ZERO_RESULTS in C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php:38
+Stack trace:
+#0 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(181): RICReport::geocode('Nadil Zeiadin (...')
+#1 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(276): RICReport::getReportData(Array)
+#2 {main}
