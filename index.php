@@ -1,7 +1,6 @@
 <?php
 
 define("NOAUTH", true);
-exit('hi');
 require_once "../../redcap_connect.php";
 require_once "config.php";
 
@@ -137,7 +136,9 @@ class Report {
 			return 0;
 		}
 		function sortPagesByHits($a, $b) {
-			return $b <=> $a;
+			if ($a < $b) return 1;
+			if ($a > $b) return -1;
+			return 0;
 		}
 		
 		foreach ($projectIDs as $pid) {
