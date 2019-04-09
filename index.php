@@ -262,12 +262,15 @@ class Report {
 	}
 }
 
-$pids = \Report::getProjectIDs();
-$reportData = \Report::getReportData($pids);
-$reportData['missingMarkers'] = $missingMarkers;
-// save geocode info
-file_put_contents($geocodesPath, json_encode($geocodes));
+if (MASTER_PID == null) {
+	echo("<h3>Missing Master Project</h3>");
+	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
+} else {
+	$pids = \Report::getProjectIDs();
+	$reportData = \Report::getReportData($pids);
+	$reportData['missingMarkers'] = $missingMarkers;
+	// save geocode info
+	file_put_contents($geocodesPath, json_encode($geocodes));
 
-include 'report.php';
-// include 'map.php';
-
+	include 'report.php';
+}
