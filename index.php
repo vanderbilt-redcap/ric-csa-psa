@@ -5,13 +5,10 @@ require_once "config.php";
 
 $oldcwd = getcwd();
 $geocodesPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", APP_PATH_TEMP . "geocodes.json");
-$geocodes = json_decode(file_get_contents($geocodesPath), true);
-$missingMarkers = 0;
-$geocodingKey = file_get_contents('geocodingKey.txt');
 $logPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", APP_PATH_TEMP . "log.txt");
-file_put_contents($logPath, "TEST\r\n", FILE_APPEND | LOCK_EX);
-file_put_contents($logPath, "TEST\r\n", FILE_APPEND | LOCK_EX);
-file_put_contents('log.txt', "TEST\r\n", FILE_APPEND | LOCK_EX);
+$geocodes = json_decode(file_get_contents($geocodesPath), true);
+$geocodingKey = file_get_contents('geocodingKey.txt');
+$missingMarkers = 0;
 
 class RICReport {
 	private static function geocode($place) {
@@ -271,7 +268,6 @@ class RICReport {
 				unset($data[$pid]);
 			}
 		}
-		
 		return $data;
 	}
 }
@@ -285,6 +281,7 @@ if (!defined('MASTER_PID')) {
 	$reportData['missingMarkers'] = $missingMarkers;
 	// save geocode info
 	file_put_contents($geocodesPath, json_encode($geocodes));
-
+	
+	// print report using reportData
 	include 'report.php';
 }
