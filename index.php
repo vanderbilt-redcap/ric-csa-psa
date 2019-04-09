@@ -268,7 +268,7 @@ class Report {
 	}
 }
 
-if (MASTER_PID == null) {
+if (!defined(MASTER_PID)) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
 } else {
