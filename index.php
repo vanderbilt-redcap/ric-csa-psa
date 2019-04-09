@@ -178,6 +178,7 @@ class RICReport {
 								'hits' => 0,
 								'contacts' => 0
 							];
+							file_put_contents('log.txt', "Going to attempt to geocode $locationName\r\n", FILE_APPEND | LOCK_EX);
 							$coords = \RICReport::geocode($locationName);
 							if (gettype($coords) == 'array') {
 								$locations[$locationName]['lat'] = $coords['lat'];
@@ -209,6 +210,7 @@ class RICReport {
 								'hits' => 0,
 								'contacts' => 0
 							];
+							file_put_contents('log.txt', "Going to attempt to geocode $locationName\r\n", FILE_APPEND | LOCK_EX);
 							$coords = \RICReport::geocode($locationName);
 							if (gettype($coords) == 'array') {
 								$locations[$locationName]['lat'] = $coords['lat'];
