@@ -8,7 +8,7 @@ $geocodesPath = str_replace("temp", "plugins\\ric-csa-psa", APP_PATH_TEMP . "geo
 $geocodes = json_decode(file_get_contents($geocodesPath), true);
 $missingMarkers = 0;
 
-class Report {
+class RICReport {
 	
 	private static function geocode($place) {
 		global $geocodes;
@@ -152,7 +152,7 @@ class Report {
 				$locations = [];
 				$pages = [];
 				
-				$contactLocationLabels = \Report::getFieldLabels(['pid' => $pid, 'field' => 'ct_location']);
+				$contactLocationLabels = \RICReport::getFieldLabels(['pid' => $pid, 'field' => 'ct_location']);
 				$contacts = $project[1]['repeat_instances'][$eid]['contacts'];
 				$hits = $project[1]['repeat_instances'][$eid]['hits'];
 				$totals = [
@@ -178,7 +178,7 @@ class Report {
 								'hits' => 0,
 								'contacts' => 0
 							];
-							$coords = \Report::geocode($locationName);
+							$coords = \RICReport::geocode($locationName);
 							if (gettype($coords) == 'array') {
 								$locations[$locationName]['lat'] = $coords['lat'];
 								$locations[$locationName]['lng'] = $coords['lng'];
@@ -209,7 +209,7 @@ class Report {
 								'hits' => 0,
 								'contacts' => 0
 							];
-							$coords = \Report::geocode($locationName);
+							$coords = \RICReport::geocode($locationName);
 							if (gettype($coords) == 'array') {
 								$locations[$locationName]['lat'] = $coords['lat'];
 								$locations[$locationName]['lng'] = $coords['lng'];
@@ -272,8 +272,8 @@ if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
 } else {
-	$pids = \Report::getProjectIDs();
-	$reportData = \Report::getReportData($pids);
+	$pids = \RICReport::getProjectIDs();
+	$reportData = \RICReport::getReportData($pids);
 	$reportData['missingMarkers'] = $missingMarkers;
 	// save geocode info
 	file_put_contents($geocodesPath, json_encode($geocodes));
