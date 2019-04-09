@@ -4,7 +4,7 @@ define("NOAUTH", true);
 require_once "../../redcap_connect.php";
 require_once "config.php";
 
-$geocodesPath = str_replace("temp", "plugins\\ric-csa-psa", APP_PATH_TEMP . "geocodes.json");
+$geocodesPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", APP_PATH_TEMP . "geocodes.json");
 $geocodes = json_decode(file_get_contents($geocodesPath), true);
 $missingMarkers = 0;
 $geocodingKey = file_get_contents('geocodingKey.txt');
@@ -109,6 +109,7 @@ class RICReport {
 	}
 	
 	public static function getReportData($projectIDs) {
+		file_put_contents('log.txt', "Called getReportData function\r\n", FILE_APPEND | LOCK_EX);
 		$pids = 
 		$data = [];
 		$data['totals'] = [
