@@ -1,13 +1,11 @@
 var rads = [];
 $(function() {
-	// var choropleth = L.map('choropleth').setView([51.505, -0.09], 13);
-	
 	$('tbody').hide();
 	
 	// set radial indicators
 	$(".statCircle").each(function(i, e) {
 		var rad = radialIndicator(e, {
-			barColor: '#004cc6',
+			barColor: '#BD0026',
 			barWidth: 6,
 			roundCorner: true,
 			percentage: true

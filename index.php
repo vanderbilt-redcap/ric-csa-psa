@@ -21,7 +21,7 @@ class Report {
 			$apikey = "AIzaSyCJ-EUa0QE3Zuyu7kG-wxlQ20jvNQw0hD4";
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$name&key=$apikey";
 			$json = file_get_contents($url);
-			// exit($json);
+			$response = json_decode($json, true);
 			
 			// // use Nominatim OSM api:
 			// $url = "https://nominatim.openstreetmap.org/search?q=$name&format=json&limit=1";
@@ -35,10 +35,15 @@ class Report {
 			// $context = stream_context_create($opts);
 			// $json = file_get_contents($url, false, $context);
 			
-			$response = json_decode($json, true);
 			if ($response['status'] != 'OK') throw new Exception('non-ok response from geocoding API: ' . $response['status']);
 			$lat = $response['results'][0]['geometry']['location']['lat'];
 			$lng = $response['results'][0]['geometry']['location']['lng'];
+			$state = '';
+			foreach ($response['results'][0]['address_components'] as $i => $part) {
+				if ($part['types'][0] == 'administrative_area_level_1') {
+					$state = $part['long_name'];
+				}
+			}
 			if (!is_float($lat) or !is_float($lng)) {
 				throw new Exception('retrieved non-float lat/long coords');
 			}
@@ -49,7 +54,11 @@ class Report {
 			return null;
 		}
 		$coords = [$lat, $lng];
-		$geocodes[$place] = $coords;
+		$geocodes[$place] = [
+			"lat" => $lat,
+			"lng" => $lng,
+			"state" => $state
+		];
 		return $coords;
 	}
 	
@@ -165,8 +174,9 @@ class Report {
 							];
 							$coords = \Report::geocode($locationName);
 							if (gettype($coords) == 'array') {
-								$locations[$locationName]['lat'] = $coords[0];
-								$locations[$locationName]['lng'] = $coords[1];
+								$locations[$locationName]['lat'] = $coords['lat'];
+								$locations[$locationName]['lng'] = $coords['lng'];
+								$locations[$locationName]['state'] = $coords['state'];
 							} else {
 								// $locations[$locationName]['geocodeError'] = $coords;
 							}
@@ -195,8 +205,9 @@ class Report {
 							];
 							$coords = \Report::geocode($locationName);
 							if (gettype($coords) == 'array') {
-								$locations[$locationName]['lat'] = $coords[0];
-								$locations[$locationName]['lng'] = $coords[1];
+								$locations[$locationName]['lat'] = $coords['lat'];
+								$locations[$locationName]['lng'] = $coords['lng'];
+								$locations[$locationName]['state'] = $coords['state'];
 							} else {
 								// $locations[$locationName]['geocodeError'] = $coords;
 							}

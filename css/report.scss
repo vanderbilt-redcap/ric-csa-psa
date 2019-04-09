@@ -40,7 +40,7 @@ html {
 		position: absolute;
 		font-size: 10px;
 		font-weight: 600;
-		color: #6A6A6A;
+		color: #800026;
 		left: 33%;
 		top: 62%;
 	}
@@ -87,12 +87,18 @@ table {
 	border-collapse: collapse;
 	margin-left: 20px;
 	margin-bottom: 8px;
+	thead tr {
+		width: 80%;
+		height: 32px;
+	}
+	tbody td {
+		padding: 4px;
+	}
+	tbody tr:nth-child(even) td:nth-child(1n+2) {
+		background: #DDD
+	}
 }
 
-thead tr {
-	width: 80%;
-	height: 32px;
-}
 
 th:nth-child(2), td:nth-child(2) {
 	width: 400px;
@@ -107,4 +113,27 @@ th, td {
 #choropleth {
 	width: 1200px;
 	height: 800px;
+}
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
 }
