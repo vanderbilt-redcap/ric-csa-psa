@@ -28,6 +28,7 @@ $(function(){
 			Object.keys(locations).forEach(function(location, name) {
 				let lat = locations[location].lat;
 				let lng = locations[location].lng;
+				console.log(lat + ' and ' + lng);
 				if (lat && lng) {
 					let marker = L.marker([lat, lng], {icon: markerIcon}).addTo(map);
 					marker.bindPopup("<b>" + location + "</b><br>Hits: " + locations[location].hits);
