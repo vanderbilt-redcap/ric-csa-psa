@@ -10,7 +10,7 @@ if(!defined("ENVIRONMENT")) {
 			define("MASTER_PID", 91748);	// real project on prod");
 		} elseif ($envConf[Victr_Env::ENV_CURRENT] === Victr_Env::ENV_DEV) {
 			define("ENVIRONMENT", "TEST");
-			define("MASTER_PID", null);
+			define("MASTER_PID", 1297);
 		}
 	} elseif (gethostname() == 'VICTRWD-83SJHQ2') {
 		define("ENVIRONMENT", "DEV");
