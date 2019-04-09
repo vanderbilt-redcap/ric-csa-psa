@@ -130,7 +130,11 @@ class Report {
 		];
 		
 		function sortLocationsByHits($a, $b) {
-			return $b['hits'] <=> $a['hits'];
+			$a = $a['hits'];
+			$b = $b['hits'];
+			if ($a < $b) return 1;
+			if ($a > $b) return -1;
+			return 0;
 		}
 		function sortPagesByHits($a, $b) {
 			return $b <=> $a;
