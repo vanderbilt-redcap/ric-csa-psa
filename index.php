@@ -8,8 +8,9 @@ $geocodesPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-p
 $geocodes = json_decode(file_get_contents($geocodesPath), true);
 $missingMarkers = 0;
 $geocodingKey = file_get_contents('geocodingKey.txt');
-file_put_contents('log.txt', "TEST\r\n", FILE_APPEND | LOCK_EX);
-file_put_contents('log.txt', "TEST\r\n", FILE_APPEND | LOCK_EX);
+$logPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", APP_PATH_TEMP . "log.txt");
+file_put_contents($logPath, "TEST\r\n", FILE_APPEND | LOCK_EX);
+file_put_contents($logPath, "TEST\r\n", FILE_APPEND | LOCK_EX);
 file_put_contents('log.txt', "TEST\r\n", FILE_APPEND | LOCK_EX);
 
 class RICReport {
