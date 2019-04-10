@@ -1,1 +1,386 @@
 l1
+Called getReportData function
+Processing project with pid: 29
+Project is 'published'
+Processing contact...
+Determining location name.
+Going to attempt to geocode UCLA
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Columbia University
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Jacobi
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Center for Rheumatology, LLP
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode University of Alabama
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Winthrop
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode University of Kentucky
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Northwell
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Dartmouth-Hitchcock Medical Center
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode University of Pittsburgh
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Center for Rheum & Bone Research
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Hospital for Special Surgery
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Mount Sinai
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Southwest Florida
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode MGH
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Cleveland Clinic
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Oregon Health & Science University
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Brigham and Women's Hospital
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Washington University St. Louis
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode SUNY Downstate
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode UMichigan
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode UT Houston
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Robert W. Levin, MD, PA
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode NYU
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Seattle Rheumatology
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Brigid Freyne MD, Inc.
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Sarasota Arthritis Research Center
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Southern Ohio Rheumatology, Inc.
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode UNC Med
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode UCSF
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Northwestern
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Nazanin Firooz MD, Inc. West Hills, CA
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Altoona Research Center
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Metroplex Clinical Research Center
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode UPenn
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode U Wisconsin
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Baylor
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode UVA
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Mt. Sinai Hospital, Canada
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Arthur Lau, ON Canada
+Failed to geocode location with place name: 'Arthur Lau, ON Canada'
+Exception text: Exception: non-ok response from geocoding API: ZERO_RESULTS in C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php:39
+Stack trace:
+#0 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(186): RICReport::geocode('Arthur Lau, ON ...')
+#1 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(280): RICReport::getReportData(Array)
+#2 {main}
+Processing contact...
+Determining location name.
+Going to attempt to geocode Liam Martin
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Sanjay Dixit, ON Canada
+Failed to geocode location with place name: 'Sanjay Dixit, ON Canada'
+Exception text: Exception: non-ok response from geocoding API: ZERO_RESULTS in C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php:39
+Stack trace:
+#0 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(186): RICReport::geocode('Sanjay Dixit, O...')
+#1 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(280): RICReport::getReportData(Array)
+#2 {main}
+Processing contact...
+Determining location name.
+Going to attempt to geocode Nadil Zeiadin (Thorne), ON Canada
+Failed to geocode location with place name: 'Nadil Zeiadin (Thorne), ON Canada'
+Exception text: Exception: non-ok response from geocoding API: ZERO_RESULTS in C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php:39
+Stack trace:
+#0 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(186): RICReport::geocode('Nadil Zeiadin (...')
+#1 C:\xampp\htdocs\redcap\plugins\ric-csa-psa\index.php(280): RICReport::getReportData(Array)
+#2 {main}
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Sibel Aydin, Ottawa
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing contact...
+Processing project with pid: 30
+Project is 'published'
+Processing contact...
+Determining location name.
+Going to attempt to geocode Houston
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Atlanta
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Norfolk
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Lebanon
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Philadelphia
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Pittsburgh
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode New Castle County
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode New Hyde Park
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode New York
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Hartford
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Shreveport
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Palo Alto
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Chicago
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Marshfield
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Boston
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Nashville
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Charleston
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Evanston
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Portland
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Salt Lake City
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode San Diego
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Indianapolis
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Seattle
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode St. Louis
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Kansas City
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode San Francisco
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Minneapolis
+Got geocode results.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Worcester
+Got geocode results.
+Processing contact...
+Determining location name.
+Going to attempt to geocode Albuquerque
+Got geocode results.
+Processing contact...
+Determining location name.
