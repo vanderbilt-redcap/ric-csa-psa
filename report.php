@@ -20,6 +20,10 @@
 		<title>Recruitment Innovation Center - General CSA/PSA Web Metrics Report</title>
 	</head>
 	<body>
-		<h1><?php \RICReport::printHi(); ?></h1>
+		<h1><?php
+		echo("<pre>");
+		print_r(\RICReport::getProjectIDs());
+		echo("</pre>");
+		?></h1>
 	</body>
 </html>
