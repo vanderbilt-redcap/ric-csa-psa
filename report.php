@@ -20,10 +20,58 @@
 		<title>Recruitment Innovation Center - General CSA/PSA Web Metrics Report</title>
 	</head>
 	<body>
-		<?php
-		echo("<pre>");
-		print_r($reportData);
-		echo("</pre>");
-		?>
+		<!-- logo -->
+		<img src='images/cheaplogo.png' alt='RIC Logo' height='150' width='400'>
+		<!-- csa row -->
+		<div class='statRow'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['count']); ?></span>
+				<span>CSAs</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['hits']); ?></span>
+				<span>Hits</span>
+			</div class='statBox'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['contacts']); ?></span>
+				<span>Contacts</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['csas']['locations']); ?></span>
+				<span>Locations</span>
+			</div>
+			<div class='statCircle' data-value='84'>
+				<span>84/100</span>
+			</div>
+		</div>
+		<!-- psa row -->
+		<div class='statRow'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['count']); ?></span>
+				<span>PSAs</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['hits']); ?></span>
+				<span>Hits</span>
+			</div class='statBox'>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['contacts']); ?></span>
+				<span>Contacts</span>
+			</div>
+			<div class='statBox'>
+				<span><?php echo($reportData['totals']['psas']['locations']); ?></span>
+				<span>Locations</span>
+			</div>
+			<div class='statCircle' data-value='84'>
+				<span>84/100</span>
+			</div>
+		</div>
+		<!-- heatmap -->
+		<div id='choropleth'></div>
+		<script type='text/javascript'>
+			var reportData = JSON.parse(`<?php echo(json_encode($reportData)); ?>`);
+		</script>
+		<script src="js/states.js"></script>
+		<script src="js/map.js"></script>
 	</body>
 </html>
