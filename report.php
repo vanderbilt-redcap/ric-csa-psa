@@ -22,7 +22,7 @@
 	<body>
 		<?php
 		echo("<pre>");
-		print_r($pids);
+		print_r($reportData);
 		echo("</pre>");
 		?>
 	</body>

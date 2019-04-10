@@ -276,7 +276,7 @@ if (!defined('MASTER_PID')) {
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
 } else {
 	$pids = \RICReport::getProjectIDs();
-	// $reportData = \RICReport::getReportData($pids);
+	$reportData = \RICReport::getReportData($pids);
 	// $reportData['missingMarkers'] = $missingMarkers;
 	// save geocode info
 	// file_put_contents($geocodesPath, json_encode($geocodes));
