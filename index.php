@@ -277,6 +277,7 @@ if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
 } else {
+	file_put_contents('log.txt', "starting script.\r\n", FILE_APPEND | LOCK_EX);
 	$pids = \RICReport::getProjectIDs();
 	$reportData = \RICReport::getReportData($pids);
 	$reportData['missingMarkers'] = $missingMarkers;
