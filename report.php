@@ -73,5 +73,69 @@
 		</script>
 		<script src="js/states.js"></script>
 		<script src="js/map.js"></script>
+		<!-- drilldown tables -->
+		<div id='tableContainer'>
+<?php
+foreach($reportData as $key => $study) {
+	if (!is_numeric($key)) continue;
+	$studyType = 'N/A';
+	if ($study['csa'] == 1) $studyType = '(CSA)';
+	if ($study['psa'] == 1) $studyType = '(PSA)';
+	echo("
+			<table>
+				<thead class='tableCollapsible'>
+					<tr>
+						<th></th>
+						<th>Study Name</th>
+						<th>Unique Hits</th>
+						<th>Contacts</th>
+						<th>% Conversion</th>
+						<th>Study Type (CSA/PSA)</th>
+					</tr>
+					<tr>
+						<th><img src='images/caret-down-solid.svg' onerror=\"this.onerror=null; this.src='images/caret-down-solid.png'\" class='tableCaret rotated'></th>
+						<th>{$study['study_name']}</th>
+						<th>{$study['totals']['hits']}</th>
+						<th>{$study['totals']['contacts']}</th>
+						<th>{$study['totals']['conversionRate']}%</th>
+						<th>$studyType</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><small>Location Detail</small></td>
+					</tr>");
+	foreach ($study['locations'] as $locationName => $locationCounts) {
+		echo("
+					<tr>
+						<td></td>
+						<td>$locationName</td>
+						<td>{$locationCounts['hits']}</td>
+						<td>{$locationCounts['contacts']}</td>
+						<td></td>
+						<td></td>
+					</tr>");
+	}
+	echo("
+					<tr>
+						<td><small>Page Detail</small></td>
+					</tr>");
+	foreach ($study['pages'] as $pageName => $pageHits) {
+		echo("
+					<tr>
+						<td></td>
+						<td>$pageName</td>
+						<td>$pageHits</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>");
+	}
+	echo("
+				</tbody>
+			</table>");
+}
+?>
+		</div>
 	</body>
 </html>
