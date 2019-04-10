@@ -10,11 +10,13 @@ $geocodingKey = file_get_contents('geocodingKey.txt');
 $missingMarkers = 0;
 
 class RICReport {
-	private static function geocode($place) {
+	public static function geocode($place) {
 		global $geocodes;
 		global $missingMarkers;
 		global $geocodingKey;
-		if (isset($geocodes[$place])) return $geocodes[$place];
+		if (isset($geocodes[$place])) {
+			return $geocodes[$place];
+		}
 		
 		//use Google Geocoding API
 		try {
@@ -53,13 +55,12 @@ class RICReport {
 			file_put_contents('log.txt', "Failed to geocode location with place name: '$place'\r\nException text: $e\r\n", FILE_APPEND | LOCK_EX);
 			return null;
 		}
-		$coords = [$lat, $lng];
 		$geocodes[$place] = [
 			"lat" => $lat,
 			"lng" => $lng,
 			"state" => $state
 		];
-		return $coords;
+		return $geocodes[$place];
 	}
 	
 	private static function getFieldLabels($args) {
@@ -183,6 +184,7 @@ class RICReport {
 							];
 							file_put_contents('log.txt', "Going to attempt to geocode $locationName\r\n", FILE_APPEND | LOCK_EX);
 							$coords = \RICReport::geocode($locationName);
+							
 							if (gettype($coords) == 'array') {
 								file_put_contents('log.txt', "Got geocode results.\r\n", FILE_APPEND | LOCK_EX);
 								$locations[$locationName]['lat'] = $coords['lat'];
@@ -277,9 +279,9 @@ if (!defined('MASTER_PID')) {
 } else {
 	$pids = \RICReport::getProjectIDs();
 	$reportData = \RICReport::getReportData($pids);
-	// $reportData['missingMarkers'] = $missingMarkers;
+	$reportData['missingMarkers'] = $missingMarkers;
 	// save geocode info
-	// file_put_contents($geocodesPath, json_encode($geocodes));
+	file_put_contents($geocodesPath, json_encode($geocodes));
 	
 	// print report using reportData
 	include 'report.php';
