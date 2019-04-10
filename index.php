@@ -98,7 +98,7 @@ class RICReport {
 				preg_match_all("/(\d+)/", $line, $matches);
 				$potentialPID = intval($matches[0][0]);
 				if (gettype($potentialPID) == 'integer') {
-					$pids[] = $potentialPID;
+					if ($potentialPID > 0) $pids[] = $potentialPID;
 				}
 			}
 			if (empty($pids)) {
