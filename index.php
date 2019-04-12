@@ -270,6 +270,14 @@ if (!defined('MASTER_PID')) {
 } else {
 	// fetch report data from REDCap projects
 	$pids = \RICReport::getProjectIDs();
+	
+	if (isset($_GET['pid'])) {
+		$pid = intval($_GET['pid']);
+		if ($pid > 0) {
+			$pids = [$pid];
+		}
+	}
+	
 	$reportData = \RICReport::getReportData($pids);
 	$reportData['missingMarkers'] = $missingMarkers;
 	

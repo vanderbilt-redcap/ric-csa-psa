@@ -22,50 +22,69 @@
 	<body>
 		<!-- logo -->
 		<img src='images/cheaplogo.png' alt='RIC Logo' height='150' width='400'>
-		<!-- csa row -->
+		
+		<?php
+			$printCSArow = true;
+			$printPSArow = true;
+			if (count($reportData) == 3) {
+				$name = $reportData[0]['study_name'];
+				if ($reportData[0]['csa'] == 0) $printCSArow = false;
+				if ($reportData[0]['psa'] == 0) $printPSArow = false;
+				echo("
+		<h1>$name Metrics Report</h1>
+		");
+			}
+			if ($printCSArow) {
+				echo("
 		<div class='statRow'>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['csas']['count']); ?></span>
+				<span>" . $reportData['totals']['csas']['count'] . "</span>
 				<span>CSAs</span>
 			</div>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['csas']['hits']); ?></span>
+				<span>" . $reportData['totals']['csas']['hits'] . "</span>
 				<span>Hits</span>
 			</div class='statBox'>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['csas']['contacts']); ?></span>
+				<span>" . $reportData['totals']['csas']['contacts'] . "</span>
 				<span>Contacts</span>
 			</div>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['csas']['locations']); ?></span>
+				<span>" . $reportData['totals']['csas']['locations'] . "</span>
 				<span>Locations</span>
 			</div>
 			<div class='statCircle' data-value='84'>
 				<span>84/100</span>
 			</div>
 		</div>
-		<!-- psa row -->
+		");
+			}
+			if ($printPSArow) {
+				echo("
 		<div class='statRow'>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['psas']['count']); ?></span>
+				<span>" . $reportData['totals']['psas']['count'] . "</span>
 				<span>PSAs</span>
 			</div>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['psas']['hits']); ?></span>
+				<span>" . $reportData['totals']['psas']['hits'] . "</span>
 				<span>Hits</span>
 			</div class='statBox'>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['psas']['contacts']); ?></span>
+				<span>" . $reportData['totals']['psas']['contacts'] . "</span>
 				<span>Contacts</span>
 			</div>
 			<div class='statBox'>
-				<span><?php echo($reportData['totals']['psas']['locations']); ?></span>
+				<span>" . $reportData['totals']['psas']['locations'] . "</span>
 				<span>Locations</span>
 			</div>
 			<div class='statCircle' data-value='84'>
 				<span>84/100</span>
 			</div>
 		</div>
+		");
+			}
+		?>
 		<!-- heatmap -->
 		<div id='choropleth'></div>
 		<script type='text/javascript'>
