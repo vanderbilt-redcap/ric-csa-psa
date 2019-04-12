@@ -14,11 +14,13 @@ class RICReport {
 		global $geocodes;
 		global $missingMarkers;
 		global $geocodingKey;
+		
+		// attempt to retrieve geocode info from cache
 		if (isset($geocodes[$place])) {
 			return $geocodes[$place];
 		}
 		
-		//use Google Geocoding API
+		// not in cache so use Google Geocoding API
 		try {
 			$name = urlencode($place);
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$name&key=$geocodingKey";
@@ -149,10 +151,8 @@ class RICReport {
 			
 			$eid = $project->firstEventId;
 			$project = \REDCap::getData($pid);
-			// file_put_contents('log.txt', "Processing project with pid: $pid\r\n", FILE_APPEND | LOCK_EX);
 			if ($project[1][$eid]['published'] == true) {
 				// we're going to re-organize the project data so it'll be easier to use on the front-end
-				// file_put_contents('log.txt', "Project is 'published'\r\n", FILE_APPEND | LOCK_EX);
 				$locations = [];
 				$pages = [];
 				
@@ -166,12 +166,10 @@ class RICReport {
 				];
 				
 				foreach ($contacts as $contact) {
-					// file_put_contents('log.txt', "Processing contact...\r\n", FILE_APPEND | LOCK_EX);
 					$totals['contacts']++;
 					
 					$locationID = $contact['ct_location'];
 					if (isset($contactLocationLabels[$locationID])) {
-						// file_put_contents('log.txt', "Determining location name.\r\n", FILE_APPEND | LOCK_EX);
 						// determine location name
 						preg_match('/(?:\d+)?\s?(.*)/', $contactLocationLabels[$locationID], $match);
 						$locationName = $match[1];
@@ -182,16 +180,12 @@ class RICReport {
 								'hits' => 0,
 								'contacts' => 0
 							];
-							// file_put_contents('log.txt', "Going to attempt to geocode $locationName\r\n", FILE_APPEND | LOCK_EX);
 							$coords = \RICReport::geocode($locationName);
 							
 							if (gettype($coords) == 'array') {
-								// file_put_contents('log.txt', "Got geocode results.\r\n", FILE_APPEND | LOCK_EX);
 								$locations[$locationName]['lat'] = $coords['lat'];
 								$locations[$locationName]['lng'] = $coords['lng'];
 								$locations[$locationName]['state'] = $coords['state'];
-							} else {
-								// $locations[$locationName]['geocodeError'] = $coords;
 							}
 						}
 						// increment contacts counter
@@ -214,14 +208,11 @@ class RICReport {
 								'hits' => 0,
 								'contacts' => 0
 							];
-							// file_put_contents('log.txt', "Going to attempt to geocode $locationName\r\n", FILE_APPEND | LOCK_EX);
 							$coords = \RICReport::geocode($locationName);
 							if (gettype($coords) == 'array') {
 								$locations[$locationName]['lat'] = $coords['lat'];
 								$locations[$locationName]['lng'] = $coords['lng'];
 								$locations[$locationName]['state'] = $coords['state'];
-							} else {
-								// $locations[$locationName]['geocodeError'] = $coords;
 							}
 						}
 						// increment contacts counter
@@ -277,9 +268,11 @@ if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
 } else {
+	// fetch report data from REDCap projects
 	$pids = \RICReport::getProjectIDs();
 	$reportData = \RICReport::getReportData($pids);
 	$reportData['missingMarkers'] = $missingMarkers;
+	
 	// save geocode info
 	file_put_contents($geocodesPath, json_encode($geocodes));
 	
