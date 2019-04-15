@@ -66,50 +66,18 @@ class RICReport {
 	}
 	
 	public static function formatNumber($num) {
+		$precision = -(strlen(strval($num)) - 3);
+		$rounded = round($num, $precision);
+		$formatted = number_format($rounded);
+		$value = str_replace(',', '.', substr($formatted, 0, 4));
+		if (substr($value, -1) == '.') $value = substr($value, 0, 3);
 		
-		$criteria = 1000;
-		if ($num < $criteria) return $num;
-		$criteria *= 1000;
-		$divisor = 1000;
-		if ($num < $criteria) {
-			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
-			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
-			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'K';
-			return $num . 'K';
-		}
-		$criteria *= 1000;
-		$divisor *= 1000;
-		if ($num < $criteria) {
-			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
-			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
-			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'M';
-			return $num . 'M';
-		}
-		$criteria *= 1000;
-		$divisor *= 1000;
-		if ($num < $criteria) {
-			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
-			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
-			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'B';
-			return $num . 'B';
-		}
-		$criteria *= 1000;
-		$divisor *= 1000;
-		if ($num < $criteria) {
-			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
-			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
-			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'T';
-			return $num . 'T';
-		}
-		$criteria *= 1000;
-		$divisor *= 1000;
-		if ($num < $criteria) {
-			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
-			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
-			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'Q';
-			return $num . 'Q';
-		}
-		return $num;
+		// determine suffix
+		if (strlen(strval($rounded)) < 4) return $num;
+		if (strlen(strval($rounded)) < 7) return $value . ' K';
+		if (strlen(strval($rounded)) < 10) return $value . ' M';
+		if (strlen(strval($rounded)) < 13) return $value . ' B';
+		return ">999 B";
 	}
 	
 	private static function getFieldLabels($args) {
@@ -295,6 +263,11 @@ class RICReport {
 				uasort($pages, 'sortPagesByHits');
 				uasort($locations, 'sortLocationsByHits');
 				
+				
+				// format our study totals
+				$totals['hits'] = \RICReport::formatNumber($totals['hits']);
+				$totals['contacts'] = \RICReport::formatNumber($totals['contacts']);
+				
 				$data[] = [
 					'study_name' => $appTitle,
 					'csa' => $project[1][$eid]['csa_psa'][1],
@@ -309,7 +282,12 @@ class RICReport {
 		}
 		
 		// format numbers so 15820 hits now is 15.8k hits etc.
-		
+		foreach($data['totals']['csas'] as $key => $val) {
+			$data['totals']['csas'][$key] = \RICReport::formatNumber($val);
+		}
+		foreach($data['totals']['psas'] as $key => $val) {
+			$data['totals']['psas'][$key] = \RICReport::formatNumber($val);
+		}
 		
 		return $data;
 	}
@@ -319,28 +297,6 @@ if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
 } else {
-	
-	$numTest = [
-		99,
-		21953,
-		229932589,
-		132359923958,
-		555239955832938,
-		12592395235829573
-	];
-	
-	$numTest2 = [];
-	foreach($numTest as $i => $num) {
-		$numTest2[$i] = \RICReport::formatNumber($num);
-	}
-	
-	echo("<pre>");
-	print_r($numTest);
-	echo("\r\n");
-	print_r($numTest2);
-	echo("</pre>");
-	exit();
-	
 	// fetch report data from REDCap projects
 	$pids = \RICReport::getProjectIDs();
 	
