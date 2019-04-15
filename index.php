@@ -65,6 +65,53 @@ class RICReport {
 		return $geocodes[$place];
 	}
 	
+	public static function formatNumber($num) {
+		
+		$criteria = 1000;
+		if ($num < $criteria) return $num;
+		$criteria *= 1000;
+		$divisor = 1000;
+		if ($num < $criteria) {
+			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
+			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
+			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'K';
+			return $num . 'K';
+		}
+		$criteria *= 1000;
+		$divisor *= 1000;
+		if ($num < $criteria) {
+			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
+			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
+			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'M';
+			return $num . 'M';
+		}
+		$criteria *= 1000;
+		$divisor *= 1000;
+		if ($num < $criteria) {
+			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
+			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
+			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'B';
+			return $num . 'B';
+		}
+		$criteria *= 1000;
+		$divisor *= 1000;
+		if ($num < $criteria) {
+			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
+			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
+			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'T';
+			return $num . 'T';
+		}
+		$criteria *= 1000;
+		$divisor *= 1000;
+		if ($num < $criteria) {
+			$precision = 3 - strlen(strval(round($num/$divisor))) + 1;
+			$num = substr(strval(round($num/$divisor, $precision)), 0, 4);
+			if (substr($num, -1) == '.') return substr($num, 0, 3) . 'Q';
+			return $num . 'Q';
+		}
+		return $num;
+	}
+	
 	private static function getFieldLabels($args) {
 		$project = new \Project($args['pid']);
 		$csv = $project->metadata[$args['field']]['element_enum'];
@@ -260,6 +307,10 @@ class RICReport {
 				unset($data[$pid]);
 			}
 		}
+		
+		// format numbers so 15820 hits now is 15.8k hits etc.
+		
+		
 		return $data;
 	}
 }
@@ -268,6 +319,28 @@ if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
 } else {
+	
+	$numTest = [
+		99,
+		21953,
+		229932589,
+		132359923958,
+		555239955832938,
+		12592395235829573
+	];
+	
+	$numTest2 = [];
+	foreach($numTest as $i => $num) {
+		$numTest2[$i] = \RICReport::formatNumber($num);
+	}
+	
+	echo("<pre>");
+	print_r($numTest);
+	echo("\r\n");
+	print_r($numTest2);
+	echo("</pre>");
+	exit();
+	
 	// fetch report data from REDCap projects
 	$pids = \RICReport::getProjectIDs();
 	

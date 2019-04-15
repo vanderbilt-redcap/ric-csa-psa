@@ -47,7 +47,7 @@
 			</div class='statBox'>
 			<div class='statBox'>
 				<span>" . $reportData['totals']['csas']['contacts'] . "</span>
-				<span>Contacts</span>
+				<span>User Contact Submissions</span>
 			</div>
 			<div class='statBox'>
 				<span>" . $reportData['totals']['csas']['locations'] . "</span>
@@ -72,7 +72,7 @@
 			</div class='statBox'>
 			<div class='statBox'>
 				<span>" . $reportData['totals']['psas']['contacts'] . "</span>
-				<span>Contacts</span>
+				<span>User Contact Submissions</span>
 			</div>
 			<div class='statBox'>
 				<span>" . $reportData['totals']['psas']['locations'] . "</span>
@@ -106,8 +106,8 @@ foreach($reportData as $key => $study) {
 					<tr>
 						<th></th>
 						<th>Study Name</th>
-						<th>Unique Hits</th>
-						<th>Contacts</th>
+						<th>Hits</th>
+						<th>User Contact Submissions</th>
 						<th>% Conversion</th>
 						<th>Study Type (CSA/PSA)</th>
 					</tr>
