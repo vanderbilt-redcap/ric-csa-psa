@@ -297,6 +297,7 @@ class RICReport {
 }
 
 file_put_contents('log.txt', "page visited\r\n", FILE_APPEND | LOCK_EX);
+var_dump(is_writable('log.txt'));
 
 if (false) {
 if (!defined('MASTER_PID')) {
