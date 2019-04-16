@@ -8,15 +8,18 @@ $logPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", 
 $geocodes = json_decode(file_get_contents($geocodesPath), true);
 $geocodingKey = file_get_contents('geocodingKey.txt');
 $missingMarkers = 0;
+$messages = [];
 
 class RICReport {
 	public static function geocode($place) {
 		global $geocodes;
 		global $missingMarkers;
+		global $messages;
 		global $geocodingKey;
 		
 		// attempt to retrieve geocode info from cache
 		if (isset($geocodes[$place])) {
+			$messages[] = "Geocode location with place name: '$place' retrieved from cache";
 			return $geocodes[$place];
 		}
 		
@@ -52,9 +55,8 @@ class RICReport {
 				throw new Exception('retrieved non-float lat/long coords');
 			}
 		} catch (Exception $e) {
-			// TODO log geocode failure
 			$missingMarkers++;
-			// file_put_contents('log.txt', "Failed to geocode location with place name: '$place'\r\nException text: $e\r\n", FILE_APPEND | LOCK_EX);
+			$messages[] = "Failed to geocode location with place name: '$place'\r\nException text: $e\r\n";
 			return null;
 		}
 		$geocodes[$place] = [
@@ -62,6 +64,7 @@ class RICReport {
 			"lng" => $lng,
 			"state" => $state
 		];
+		$messages[] = "Geocode location with place name: '$place' retrieved from Geocoding API";
 		return $geocodes[$place];
 	}
 	
@@ -293,6 +296,9 @@ class RICReport {
 	}
 }
 
+file_put_contents('log.txt', "page visited\r\n", FILE_APPEND | LOCK_EX);
+
+if (false) {
 if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
@@ -315,4 +321,5 @@ if (!defined('MASTER_PID')) {
 	
 	// print report using reportData
 	include 'report.php';
+}
 }
