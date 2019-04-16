@@ -10,7 +10,13 @@ $geocodingKey = file_get_contents('geocodingKey.txt');
 $missingMarkers = 0;
 $messages = [];
 
+file_put_contents('log.txt', 'newlog');
+
 class RICReport {
+	public static function log($txt) {
+		file_put_contents('log.txt', $txt . "\r\n", FILE_APPEND);
+	}
+	
 	public static function geocode($place) {
 		global $geocodes;
 		global $missingMarkers;
@@ -296,10 +302,6 @@ class RICReport {
 	}
 }
 
-file_put_contents('log.txt', "page visited\r\n", FILE_APPEND | LOCK_EX);
-var_dump(is_writable('log.txt'));
-
-if (false) {
 if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
@@ -322,5 +324,4 @@ if (!defined('MASTER_PID')) {
 	
 	// print report using reportData
 	include 'report.php';
-}
 }
