@@ -10,7 +10,7 @@ $geocodingKey = file_get_contents('geocodingKey.txt');
 $missingMarkers = 0;
 $messages = [];
 
-file_put_contents('log.txt', 'newlog');
+file_put_contents('log.txt', "newlog\r\n");
 
 class RICReport {
 	public static function log($txt) {
@@ -25,7 +25,7 @@ class RICReport {
 		
 		// attempt to retrieve geocode info from cache
 		if (isset($geocodes[$place])) {
-			$messages[] = "Geocode location with place name: '$place' retrieved from cache";
+			\RICReport::log("Geocode location with place name: '$place' retrieved from cache");
 			return $geocodes[$place];
 		}
 		
@@ -62,7 +62,7 @@ class RICReport {
 			}
 		} catch (Exception $e) {
 			$missingMarkers++;
-			$messages[] = "Failed to geocode location with place name: '$place'\r\nException text: $e\r\n";
+			\RICReport::log("Failed to geocode location with place name: '$place'\r\nException text: $e");
 			return null;
 		}
 		$geocodes[$place] = [
@@ -70,7 +70,7 @@ class RICReport {
 			"lng" => $lng,
 			"state" => $state
 		];
-		$messages[] = "Geocode location with place name: '$place' retrieved from Geocoding API";
+		\RICReport::log("Geocode location with place name: '$place' retrieved from Geocoding API");
 		return $geocodes[$place];
 	}
 	
