@@ -10,6 +10,9 @@ $geocodingKey = file_get_contents('geocodingKey.txt');
 $missingMarkers = 0;
 $messages = [];
 
+if (!is_writable('geocodes.json')) echo "Error: geocodes.json not writable";
+if (!is_writable('log.txt')) echo "Error: log.txt not writable";
+
 file_put_contents('log.txt', "newlog\r\n");
 
 class RICReport {
