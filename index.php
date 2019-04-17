@@ -4,15 +4,6 @@ require_once "../../redcap_connect.php";
 require_once "config.php";
 
 echo("<pre>");
-
-if (!file_exists('geocodes.json')) {
-	file_put_contents('geocodes.json', '{}');
-	chgrp("geocodes.json", "apache");
-}
-if (!file_exists('log.txt')) {
-	file_put_contents('log.txt', "timestamp: " . time() . "\r\n");
-	chgrp("geocodes.json", "apache");
-}
 if (!is_writable('geocodes.json')) echo "Error: geocodes.json not writable\n";
 if (!is_writable('log.txt')) echo "Error: log.txt not writable\n";
 file_put_contents('log.txt', "item 1" . "\r\n", FILE_APPEND);
