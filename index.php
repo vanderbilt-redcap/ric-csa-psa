@@ -3,22 +3,13 @@ define("NOAUTH", true);
 require_once "../../redcap_connect.php";
 require_once "config.php";
 
-echo("<pre>");
-if (!is_writable('geocodes.json')) echo "Error: geocodes.json not writable\n";
-if (!is_writable('log.txt')) echo "Error: log.txt not writable\n";
-file_put_contents('log.txt', "item 1" . "\r\n", FILE_APPEND);
+if (!is_writable('geocodes.json')) echo "Warning: geocodes.json not writable<br />";
+if (!is_writable('log.txt')) echo "Warning: log.txt not writable<br />";
+file_put_contents('log.txt', "timestamp: " . time() . "\r\n");
 
-echo("</pre>");
-exit();
-
-// $geocodesPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", APP_PATH_TEMP . "geocodes.json");
-// $logPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", APP_PATH_TEMP . "log.txt");
-// $geocodes = json_decode(file_get_contents($geocodesPath), true);
 $geocodes = json_decode(file_get_contents('geocodes.json'), true);
 $geocodingKey = file_get_contents('geocodingKey.txt');
 $missingMarkers = 0;
-
-file_put_contents('log.txt', "newlog\r\n");
 
 class RICReport {
 	public static function localLog($txt) {
@@ -327,7 +318,7 @@ if (!defined('MASTER_PID')) {
 	$reportData['missingMarkers'] = $missingMarkers;
 	
 	// save geocode info
-	file_put_contents($geocodesPath, json_encode($geocodes));
+	file_put_contents('geocodes.json', json_encode($geocodes));
 	
 	// print report using reportData
 	include 'report.php';
