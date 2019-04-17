@@ -1,1 +1,2 @@
 newlog
+item 1
