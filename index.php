@@ -4,13 +4,20 @@ require_once "../../redcap_connect.php";
 require_once "config.php";
 
 echo("<pre>");
-echo('started script\n');
+
+if (!file_exists('geocodes.json')) {
+	file_put_contents('geocodes.json', '{}');
+	// chgrp("geocodes.json", "apache");
+}
+if (!file_exists('log.txt')) {
+	file_put_contents('log.txt', "timestamp: " . time() . "\r\n");
+	// chgrp("geocodes.json", "apache");
+}
 if (!is_writable('geocodes.json')) echo "Error: geocodes.json not writable\n";
 if (!is_writable('log.txt')) echo "Error: log.txt not writable\n";
-echo("</pre>");
-file_put_contents('log.txt', "newlog\r\n");
 file_put_contents('log.txt', "item 1" . "\r\n", FILE_APPEND);
-file_put_contents('geocodes.json', '{a: "b"}');
+
+echo("</pre>");
 exit();
 
 // $geocodesPath = str_replace("temp", "plugins" . DIRECTORY_SEPARATOR . "ric-csa-psa", APP_PATH_TEMP . "geocodes.json");
