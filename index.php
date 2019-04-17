@@ -9,6 +9,7 @@ file_put_contents('log.txt', "timestamp: " . time() . "\r\n");
 
 $geocodes = json_decode(file_get_contents('geocodes.json'), true);
 $geocodingKey = file_get_contents('geocodingKey.txt');
+echo("$geocodingKey \r\n");
 $missingMarkers = 0;
 
 class RICReport {
