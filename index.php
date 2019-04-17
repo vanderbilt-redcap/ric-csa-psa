@@ -62,7 +62,7 @@ class RICReport {
 			}
 		} catch (Exception $e) {
 			$missingMarkers++;
-			\RICReport::localLog("Failed to geocode location with place name: '$place'\r\nException text: $e\r\n");
+			\RICReport::localLog("Failed to geocode location with place name: '$place'\r\nurl: '$url'\r\nException text: $e\r\n");
 			return null;
 		}
 		$geocodes[$place] = [
