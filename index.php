@@ -1,4 +1,5 @@
 <?php
+include("C:/xampp/htdocs/redcap/redcap_v11.3.3/Config/init_functions.php");
 define("NOAUTH", true);
 require_once "../../redcap_connect.php";
 require_once "config.php";
@@ -305,6 +306,46 @@ class RICReport {
 if (!defined('MASTER_PID')) {
 	echo("<h3>Missing Master Project</h3>");
 	echo("<span>No master RIC CSA/PSA project has been configured for this server. Please contact your REDCap administrator.</span>");
+} elseif (isset($_GET['get_hit_urls'])) {
+	$pids = \RICReport::getProjectIDs();
+	$studies = [
+		84269 => "DOSE",
+		91932 => "SPIRRIT",
+		90287 => "ValEAR",
+		96617 => "CREST-2",
+		97552 => "CASTL",
+		98397 => "ZEDS",
+		98184 => "STRESS",
+		101704 => "NAP",
+		91494 => "Wisdom 2",
+		119922 => "VUMC COVID Studies",
+		120378 => "PASS IT ON",
+		107098 => "SurgeryPal",
+		132732 => "NECTAR/RAAS",
+		73477 => "Target",
+		76645 => "Optimum",
+		91934 => "ADHD",
+		93112 => "LOFT-HF",
+		91288 => "Lithium",
+		120176 => "ACTIV-1 IM (Final)"
+	];
+	
+	foreach ($pids as $pid) {
+		$params = [
+			"project_id" => $pid,
+			"return_format" => 'json',
+			"fields" => "hit_url"
+		];
+		$data = json_decode(\REDCap::getData($params));
+		
+		$study_name = $studies[intval($pid)];
+		echo"PROJECT_ID: " . $pid . "<br>";
+		if (!empty($study_name))
+			echo"STUDY_NAME: " . $studies[$pid] . "<br>";
+		foreach ($data as $instance) {
+			echo(print_r($instance->hit_url, true) . "<br>");
+		}
+	}
 } else {
 	// fetch report data from REDCap projects
 	$pids = \RICReport::getProjectIDs();
